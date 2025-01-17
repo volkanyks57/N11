@@ -11,21 +11,20 @@
               <span class="yellow-text">TAKSİT</span>
             </div>
 
-
             <!-- Favori Kalp Simgesi -->
             <button class="favorite-btn" @click="toggleFavorite(index)">
               <i class="bi bi-heart-fill" :class="{ 'text': product.isFavorite }"></i>
             </button>
 
             <!-- Ürün Görseli -->
-            <img :src="product.image" alt="Product Image" />
+            <img :src="product.img" alt="Product Image" />
 
             <!-- Ürün İçerik Alanı -->
             <div class="product-info">
 
               <!-- Kargo bilgisi kutusu -->
               <div class="shipping-info">
-                <span>{{ product.shipping }}</span>
+                <span>{{ product.freeShipping ? 'Ücretsiz Kargo' : '' }}</span>
               </div>
               <!-- Ürün İsmi -->
               <p style="font-size: small;">{{ product.name }}</p>
@@ -41,9 +40,9 @@
               </div>
               <!-- Fiyat bilgileri -->
               <div class="price-container">
-                <span v-if="product.oldPrice" class="old-price">{{ product.oldPrice }}</span>
-                <span v-if="product.isBasket" class="basket-info">SEPETTE</span>
-                <span class="new-price">{{ product.price }}</span>
+                <span v-if="product.oldPrice" class="old-price">{{ product.oldPrice }} TL</span>
+                <span v-if="product.isInCart" class="basket-info">SEPETTE</span>
+                <span class="new-price">{{ product.newPrice }} TL</span>
               </div>
             </div>
           </div>
@@ -52,20 +51,20 @@
         <!-- Kareler için Slider -->
         <div class="square-slider">
           <div class="square-wrapper" :style="{ transform: `translateX(-${currentSquareIndex * 110}px)` }">
-            <router-link v-for="(square, index) in squares" :key="index" :to="`/brand/${square.name}`">
+            <router-link v-for="(square, index) in squares" :key="index" :to="`/brand/${encodeURIComponent(square.name)}`">
               <div class="square" :style="{ backgroundImage: `url(${square.image})`, backgroundSize: 'cover' }"></div>
             </router-link>
           </div>
 
           <!-- Square Okları -->
           <button class="square-nav-btn prev" @click="moveSquareLeft" v-show="currentSquareIndex > 0">
-            <i class="bi bi-chevron-compact-right"></i>
-          </button>
+  <i class="bi bi-chevron-compact-right"></i>
+</button>
 
-          <button class="square-nav-btn next" @click="moveSquareRight"
-            v-show="currentSquareIndex < squares.length - visibleSquareCount">
-            <i class="bi bi-chevron-compact-right"></i>
-          </button>
+<button class="square-nav-btn next" @click="moveSquareRight"
+  v-show="currentSquareIndex < squares.length - visibleSquareCount">
+  <i class="bi bi-chevron-compact-right"></i>
+</button>
         </div>
 
         <!-- Carousel Okları -->
@@ -75,8 +74,6 @@
         <button @click="moveCarouselRight" class="carousel-btn next"
           v-show="currentIndex < products.length - visibleCount">
           <i class="bi bi-chevron-compact-right"></i>
-            <path fill-rule="evenodd"
-              d="M4.646 1.146a.5.5 0 0 1 .708 0l6.5 6.5a.5.5 0 0 1 0 .708l-6.5-6.5a.5.5 0 0 1-.708-.708L10.793 8 4.646 1.854a.5.5 0 0 1 0-.708z" />
         </button>
       </div>
     </div>
@@ -84,123 +81,73 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+const db = getFirestore();
+
+
+// Ürünler listesi tipi
+interface Product {
+  name: string;
+  newPrice: number;
+  oldPrice?: number;
+  freeShipping: boolean;
+  img: string;
+  isFavorite: boolean;
+  isInCart: boolean;
+  isRated: boolean;
+  rating: number;
+}
 
 // Ürünler listesi
-const products = ref([
-  {
-    name: 'Salomon X Ultra 4 GTX W Kadın Arazi Tipi Koşu...',
-    price: '6.499,15 TL',
-    oldPrice: '6.799,15 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/15/06/60/19/IMG-1265382494080724538.jpg',
-    isFavorite: false,
-    isBasket: true, // Sepette bilgisi
-    isRated: false,
-    rating: 0,
-  },
-  {
-    name: 'Adidas B75807 Samba Og Unisex Günlük Ayakkabı... ',
-    price: '4.799 TL',
-    oldPrice: '4.999 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/09/20/30/37/IMG-2096429457468575272.jpg',
-    isFavorite: false,
-    isBasket: true, // "SEPETTE" yazısını göstermek için
-    isRated: true,
-    rating: 4,
-  },
-  {
-    name: 'Converse Chuck 70 Plus Canvas Sneaker Unisex...',
-    price: '4.119,10 TL',
-    oldPrice: '4.319,10 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/12/00/12/07/IMG-7736097963369066011.jpg',
-    isFavorite: false,
-    isBasket: true, // "SEPETTE" yazısını göstermek için
-    isRated: true,
-    rating: 4,
-  },
-  {
-    name: 'The North Face Kadın Dıablo Down 2.0 Ceket...',
-    price: '13.259,15 TL',
-    oldPrice: '13.571,13 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/16/94/94/37/IMG-8614074302924279290.jpg',
-    isFavorite: false,
-    isBasket: false,
-  },
-  {
-    name: 'Adidas Z.N.E. Kadın Bej Kapüşonlu Ceket',
-    price: '4.256,10 TL',
-    oldPrice: '4.729 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/13/55/14/78/IMG-1218056124292347055.jpg',
-    isFavorite: false,
-    isBasket: false, // "SEPETTE" yazısını göstermek için
-  },
-  {
-    name: 'Puma Squad Track Jacket Erkek Günlük Ceket...',
-    price: '2.250 TL',
-    oldPrice: '2.400 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/16/99/98/47/IMG-9091523105593702967.jpg',
-    isFavorite: false,
-    isBasket: false, // "SEPETTE" yazısını göstermek için
-  },
-  {
-    name: 'Adidas Breaknet 2.0 Çocuk Günlük Spor Ayakkabı C-...',
-    price: '1.699,99 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/15/21/70/34/IMG-649422989526295787.jpg',
-    isFavorite: false,
-    isBasket: false, // "SEPETTE" yazısını göstermek için
-    isRated: true,
-    rating: 4,
-  },
-  {
-    name: 'Adidas Ozelia Erkek Günlük Ayakkabı H04250 Siyah -...',
-    price: '2.899 TL',
-    oldPrice: '2.999 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/16/57/75/88/IMG-447388008560604676.jpg',
-    isFavorite: false,
-    isBasket: true, // "SEPETTE" yazısını göstermek için
-    isRated: true,
-    rating: 5,
-  },
-  {
-    name: 'Name İt Kids Nkfmelbourne Puffer...',
-    price: '1.799,93 TL',
-    oldPrice: '2.159,91 TL',
-    shipping: 'Ücretsiz Kargo',
-    image: 'https://n11scdn.akamaized.net/a1/182_180/15/06/60/19/IMG-1265382494080724538.jpg',
-    isFavorite: false,
-    isBasket: false, // "SEPETTE" yazısını göstermek için
-  },
-]);
+const products = ref<Product[]>([]); // Firestore'dan gelen ürünler
 
 const visibleCount = 3;
-let currentIndex = ref(0);
+const currentIndex = ref(0);
 
+// Görünen ürünler
 const visibleProducts = computed(() =>
   products.value.slice(currentIndex.value, currentIndex.value + visibleCount)
 );
 
+// Sağ ok tuşuna basıldığında ürünleri kaydırma
 const moveCarouselRight = () => {
   if (currentIndex.value < products.value.length - visibleCount) {
     currentIndex.value += visibleCount;
   }
 };
 
+// Sol ok tuşuna basıldığında ürünleri kaydırma
 const moveCarouselLeft = () => {
   if (currentIndex.value > 0) {
     currentIndex.value -= visibleCount;
   }
 };
 
+// Favori butonuna tıklandığında favori durumunu değiştirme
 const toggleFavorite = (index: number) => {
   products.value[index].isFavorite = !products.value[index].isFavorite;
+};
+
+// Firestore'dan ürünleri çekme
+const fetchProducts = async () => {
+  const querySnapshot = await getDocs(collection(db, "ProductSlider"));
+
+  querySnapshot.forEach((doc) => {
+    const product = doc.data() as Product;  // TypeScript türü belirledik
+    products.value.push({
+      name: product.name,
+      newPrice: product.newPrice,
+      oldPrice: product.oldPrice,
+      freeShipping: product.freeShipping,
+      img: product.img,
+      isFavorite: product.isFavorite,
+      isInCart: product.isInCart,
+      isRated: product.isRated,
+      rating: product.rating
+    });
+  });
 };
 
 // Kareler listesi
@@ -215,23 +162,28 @@ const squares = ref([
 
 // Slider durumları
 const visibleSquareCount = 5; // Aynı anda görünen kare sayısı
-const currentSquareIndex = ref(0);
+const currentSquareIndex = ref<number>(0); // Ref tipi açıkça belirtiliyor
 
-// Sağ tarafa kaydırma
 const moveSquareRight = () => {
   if (currentSquareIndex.value < squares.value.length - visibleSquareCount) {
     currentSquareIndex.value++;
   }
 };
 
-// Sol tarafa kaydırma
 const moveSquareLeft = () => {
   if (currentSquareIndex.value > 0) {
     currentSquareIndex.value--;
   }
 };
 
+// Sayfa yüklendiğinde ürünleri çek
+onMounted(() => {
+  fetchProducts();
+});
+
+
 </script>
+
 
 <style scoped>
 /* Konteynır düzeni */

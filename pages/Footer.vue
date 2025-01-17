@@ -1,29 +1,29 @@
 <template>
-    <footer class="text-black py-5">
-      <div class="container">
-        <!-- 1. Container: %20 oranında - Hızlı Linkler -->
+  <footer class="text-black py-5">
+    <div class="container">
+      <!-- 1. Container: %20 oranında - Hızlı Linkler -->
       <div class="d-flex justify-content-center align-items-center mb-5" style="height: 20%;">
         <div class="d-flex gap-5 justify-content-center">
           <div v-for="(item, index) in quickLinks" :key="index" class="d-flex align-items-center">
             <div class="img-container d-flex justfiy-content-center align-items-center">
-                <img :src="item.img" alt="icon" class="icon-img">
+              <img :src="item.img" alt="icon" class="icon-img">
             </div>
             <span class="mt-2 text-center">{{ item.text }}</span>
           </div>
         </div>
       </div>
-  
-        <!-- 2. Container: %60 oranında -->
-        <div class="row justfiy-content-center align-items-center custom-row" style="height: 60%;">
-          <div v-for="(section, index) in linkSections" :key="index" class="col-6 col-lg-2 mb-3">
-            <h5>{{ section.title }}</h5>
-            <ul class="list-unstyled">
-              <li v-for="(link, linkIndex) in section.links" :key="linkIndex">
-                <a href="#" class="text-black">{{ link }}</a>
-              </li>
-            </ul>
-          </div>
-          <!-- 5. Sütun: Mağaza Girişi ve Ücretsiz Mağaza Aç -->
+
+      <!-- 2. Container: %60 oranında -->
+      <div class="row justfiy-content-center align-items-start custom-row" style="height: 60%;">
+        <div v-for="(section, index) in linkSections" :key="index" class="col-6 col-lg-2 mb-3">
+          <h5>{{ section.title }}</h5>
+          <ul class="list-unstyled">
+            <li v-for="(link, linkIndex) in section.links" :key="linkIndex">
+              <a href="#" class="text-black">{{ link }}</a>
+            </li>
+          </ul>
+        </div>
+        <!-- 5. Sütun: Mağaza Girişi ve Ücretsiz Mağaza Aç -->
         <div class="col-6 col-lg-2 mb-3 custom-store-section">
           <h5>Mağazalar</h5>
           <a href="#" class="btn btn-primary d-block mb-3 custom-btn-store">Mağaza Girişi</a>
@@ -34,212 +34,256 @@
             </li>
           </ul>
         </div>
-        </div>
-  
-        <!-- 3. Container: %20 oranında -->
-<div class="row third-container" style="height: 20%;">
-  <!-- 1. Parça (%40) -->
-  <div class="col-lg-4 d-flex flex-column">
-    <!-- 1. Parça - Üst Kısım (Yazı) -->
-    <div class="flex-grow-1 d-flex align-items-center justify-content-center">
-      <p>n11 uygulamasını ücretsiz indir mobile
-        özel avantajlardan yararlan!</p>
-    </div>
-    <!-- 1. Parça - Alt Kısım (İconlar) -->
-    <div class="flex-grow-1 d-flex justify-content-center gap-5">
-      <a href="https://apps.apple.com/us/app/n11-getiralışveriş/id779590051?mt=8" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/h03/h4a/9694501208094/google-play.svg" alt="App Store" class="app-icon"></a>
-      <a href="https://play.google.com/store/apps/details?id=com.dmall.mfandroid&referrer=adjust_reftag%3DcdvO3dgUx3Tmv%26utm_source%3Dweb_android_footer&pli=1" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/h6b/h4d/9694501306398/app-store.svg" alt="Google Play" class="app-icon"></a>
-      <a href="https://appgallery.huawei.com/#/app/C101803793" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/hd3/h50/9694501404702/huawei.svg" alt="App Gallery" class="app-icon"></a>
-    </div>
-  </div>
-
-  <!-- 2. Parça (%30) -->
-  <div class="col-lg-3 d-flex flex-column">
-    <!-- 2. Parça - Üst Kısım (Yazı) -->
-    <div class="flex-grow-1 d-flex align-items-center justify-content-center">
-      <h5>Bizi Takip Et</h5>
-    </div>
-    <!-- 2. Parça - Alt Kısım (İconlar) -->
-    <div class="flex-grow-1 d-flex justify-content-center gap-3">
-      <a href="https://www.facebook.com/n11official" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/hf5/had/9694502092830/facebook.svg" alt="Facebook" class="app-icon"></a>
-      <a href="https://x.com/n11official" target="_blank"><img src="https://www.mavi.com/medias/x-twitterp1.svg?context=bWFzdGVyfG1hdmljZG5pbWFnZXN8NTYwfGltYWdlL3N2Zyt4bWx8YURrNEwyZ3haUzh4TURJek5EUTBORFEwTnpjM05DOTRMWFIzYVhSMFpYSndNUzV6ZG1jfDQ1M2FhZmUzOWFiYzRjM2VkOWNlMzBlN2MyMDBkMTY4MmZmNDg4NmFkMWQwYjJhY2JkMDgzMjVkYmM2YjQ4NzA" alt="Twitter" class="app-icon"></a>
-      <a href="https://www.instagram.com/n11resmi/" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/h8a/h62/9694501961758/instagram.svg" alt="Instagram" class="app-icon"></a>
-      <a href="https://www.youtube.com/user/n11comkanal" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/h92/hc1/9694502617118/youtube.svg" alt="Youtube" class="app-icon"></a>
-      <a href="https://tr.pinterest.com/n11official/" target="_blank"><img src="https://sky-static.mavi.com/sys-master/maviTrImages/hb2/hb4/9694502289438/spotify.svg" alt="Pinterest" class="app-icon"></a>
-    </div>
-  </div>
-
-  <!-- 3. Parça (%10) -->
-  <div class="col-lg-1 d-flex flex-column">
-    <!-- 3. Parça - Üst Kısım (Yazı) -->
-    <div class="flex-grow-1 d-flex align-items-center justify-content-center">
-      <h5>Bloga Göz At</h5>
-    </div>
-    <!-- 3. Parça - Alt Kısım (İcon) -->
-    <div class="flex-grow-1 d-flex align-items-center justify-content-center">
-      <a href="https://blog.n11.com" target="_blank"><img src="/Icons/Picture_5.jpg" alt="Blog11" class="app-icon"></a>
-    </div>
-  </div>
-
-  <!-- 4. Parça (%10) -->
-  <div class="col-lg-1 d-flex justify-content-center align-items-center">
-    <a href="https://www.eticaret.gov.tr/siteprofil/4C79A5CE1759448C97EB57D5E6E10CD1/wwwn11com" target="_blank"><img src="/Icons/Picture_6.jpg" class="qr-code"></a>
-  </div>
-
-  <!-- 5. Parça (%10) -->
-  <div class="col-lg-1 d-flex justify-content-center align-items-center">
-    <a href="https://www.guvendamgasi.org.tr/view/uye/detay.php?Guid=b23c99b2-aed3-11ea-8718-48df373f4850" target="_blank"><img src="/Icons/Picture_7.jpg" class="app-icon"></a>
-  </div>
-</div>
       </div>
 
-      <!-- Yeni Alt Container: Büyük Container'ın Dışında -->
-  <div class="footer-bottom-container d-flex justify-content-between align-items-center py-3">
-    <!-- Sol Kısım -->
-    <div class="footer-left">
-      <p>© Telif Hakkı 2012-2024 n11</p>
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <a href="#">Müşteri Kişisel Verilerinin İşlenmesine İlişkin Aydınlatma Metni</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">Kullanım Koşullarımız</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">Çerez Ayarları</a>
-        </li>
-      </ul>
+      <!-- 3. Container: %20 oranında -->
+      <div class="row third-container" style="height: 20%;">
+        <!-- 1. Parça (%40) -->
+        <div class="col-lg-4 d-flex flex-column">
+          <!-- 1. Parça - Üst Kısım (Yazı) -->
+          <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+            <p>n11 uygulamasını ücretsiz indir mobile
+              özel avantajlardan yararlan!</p>
+          </div>
+          <!-- 1. Parça - Alt Kısım (İconlar) -->
+          <div class="flex-grow-1 d-flex justify-content-center gap-5">
+            <a href="https://apps.apple.com/us/app/n11-getiralışveriş/id779590051?mt=8" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,<?xml%20version=%271.0%27%20encoding=%27UTF-8%27?><svg%20viewBox=%270%200%20154%2040%27%20xmlns=%27http://www.w3.org/2000/svg%27%20xmlns:xlink=%27http://www.w3.org/1999/xlink%27><defs><rect%20id=%27d%27%20width=%27153.33%27%20height=%2740%27%20rx=%275%27/></defs><g%20fill=%27none%27%20fill-rule=%27evenodd%27><mask%20id=%27c%27%20fill=%27%23fff%27><use%20xlink:href=%27%23d%27/></mask><use%20fill=%27%23000%27%20xlink:href=%27%23d%27/><g%20fill=%27%23FFF%27%20fill-rule=%27nonzero%27%20mask=%27url(%23c)%27><path%20d=%27M27.436%2020.634a4.949%204.949%200%200%201%202.356-4.152%205.066%205.066%200%200%200-3.991-2.158c-1.68-.176-3.307%201.005-4.163%201.005-.872%200-2.19-.987-3.608-.958a5.315%205.315%200%200%200-4.473%202.728c-1.934%203.348-.492%208.27%201.36%2010.976.928%201.325%202.011%202.806%203.428%202.753%201.388-.057%201.906-.884%203.58-.884%201.659%200%202.145.884%203.59.85%201.49-.023%202.427-1.33%203.321-2.668a10.962%2010.962%200%200%200%201.519-3.093%204.782%204.782%200%200%201-2.92-4.399zM24.704%2012.544a4.872%204.872%200%200%200%201.114-3.49%204.957%204.957%200%200%200-3.207%201.66%204.636%204.636%200%200%200-1.144%203.36%204.1%204.1%200%200%200%203.237-1.53z%27/></g><g%20fill=%27%23FFF%27%20fill-rule=%27nonzero%27%20mask=%27url(%23c)%27><path%20d=%27M38.247%2024.816a.554.554%200%201%201%201.108.023.554.554%200%200%201-1.108-.023zm.09%207.088v-5.967h.927v5.967h-.926zM40.78%2027.4h.855v.716h.067c.231-.527.77-.849%201.344-.802a1.465%201.465%200%200%201%201.558%201.675v2.915h-.888V29.21c0-.723-.315-1.083-.972-1.083a1.033%201.033%200%200%200-1.075%201.14v2.636h-.889V27.4zM45.756%2029.65c0-1.423.731-2.324%201.869-2.324a1.485%201.485%200%200%201%201.38.79h.067v-2.473h.889v6.26h-.852v-.711h-.07a1.563%201.563%200%200%201-1.414.786c-1.146%200-1.87-.902-1.87-2.328zm.918%200c0%20.955.45%201.53%201.203%201.53.749%200%201.212-.583%201.212-1.526%200-.939-.468-1.53-1.212-1.53-.748%200-1.203.578-1.203%201.526zM51.302%2026.069a.576.576%200%201%201%20.576.542.547.547%200%200%201-.576-.542zm.132%201.332h.886v4.503h-.886V27.4zM53.754%2027.4h.855v.691h.066a1.221%201.221%200%200%201%201.216-.765%201.9%201.9%200%200%201%20.397.037v.877a2.47%202.47%200%200%200-.496-.054%201.055%201.055%200%200%200-1.15%201.059v2.659h-.888V27.4zM57.22%2026.069a.576.576%200%201%201%20.576.542.547.547%200%200%201-.576-.542zm.132%201.332h.886v4.503h-.886V27.4zM59.672%2027.4h.855v.716h.066c.232-.527.771-.849%201.344-.802a1.465%201.465%200%200%201%201.559%201.675v2.915h-.889V29.21c0-.723-.314-1.083-.972-1.083a1.033%201.033%200%200%200-1.075%201.14v2.636h-.888V27.4z%27/></g><g%20fill=%27%23FFF%27%20fill-rule=%27nonzero%27%20mask=%27url(%23c)%27><path%20d=%27M44.971%2017.81h-4.733l-1.137%203.357h-2.005L41.58%208.749h2.083l4.483%2012.418h-2.039l-1.136-3.357zm-4.243-1.548h3.752l-1.85-5.448h-.051l-1.85%205.448zM57.829%2016.64c0%202.814-1.506%204.622-3.779%204.622a3.07%203.07%200%200%201-2.848-1.584h-.043v4.484H49.3V12.113h1.8v1.506h.033a3.212%203.212%200%200%201%202.883-1.6c2.298%200%203.813%201.816%203.813%204.621zm-1.91%200c0-1.833-.948-3.038-2.393-3.038-1.42%200-2.375%201.23-2.375%203.038%200%201.825.955%203.046%202.375%203.046%201.445%200%202.393-1.196%202.393-3.046zM67.793%2016.64c0%202.814-1.505%204.622-3.778%204.622a3.07%203.07%200%200%201-2.848-1.584h-.043v4.484h-1.859V12.113h1.8v1.506h.033a3.212%203.212%200%200%201%202.883-1.6c2.298%200%203.812%201.816%203.812%204.621zm-1.91%200c0-1.833-.947-3.038-2.392-3.038-1.42%200-2.375%201.23-2.375%203.038%200%201.825.955%203.046%202.375%203.046%201.445%200%202.392-1.196%202.392-3.046zM74.38%2017.707c.137%201.231%201.333%202.04%202.968%202.04%201.566%200%202.693-.809%202.693-1.92%200-.963-.68-1.54-2.289-1.936l-1.61-.387c-2.28-.551-3.338-1.617-3.338-3.348%200-2.143%201.867-3.614%204.518-3.614%202.624%200%204.423%201.471%204.484%203.614H79.93c-.112-1.24-1.137-1.987-2.634-1.987-1.497%200-2.521.757-2.521%201.858%200%20.878.654%201.395%202.254%201.79l1.369.336c2.547.603%203.606%201.626%203.606%203.442%200%202.324-1.85%203.779-4.794%203.779-2.754%200-4.613-1.421-4.733-3.667h1.902zM86.015%209.97v2.143h1.722v1.472h-1.722v4.991c0%20.775.345%201.137%201.101%201.137.205-.004.409-.018.612-.043v1.463c-.34.063-.686.092-1.033.086-1.833%200-2.547-.689-2.547-2.445v-5.19H82.83v-1.47h1.317V9.97h1.867zM88.734%2016.64c0-2.848%201.677-4.638%204.294-4.638%202.625%200%204.294%201.79%204.294%204.638%200%202.857-1.66%204.64-4.294%204.64-2.633%200-4.294-1.783-4.294-4.64zm6.695%200c0-1.954-.896-3.107-2.401-3.107-1.506%200-2.4%201.162-2.4%203.107%200%201.962.894%203.107%202.4%203.107%201.505%200%202.4-1.145%202.4-3.107zM98.855%2012.113h1.772v1.541h.043a2.16%202.16%200%200%201%202.178-1.636c.214%200%20.428.023.637.07v1.738a2.598%202.598%200%200%200-.835-.112%201.873%201.873%200%200%200-1.937%202.083v5.37h-1.858v-9.054zM112.053%2018.508c-.25%201.643-1.85%202.771-3.899%202.771-2.633%200-4.268-1.765-4.268-4.596%200-2.84%201.643-4.681%204.19-4.681%202.505%200%204.08%201.72%204.08%204.466v.636h-6.394v.113a2.358%202.358%200%200%200%202.435%202.564%202.048%202.048%200%200%200%202.091-1.273h1.765zm-6.282-2.702h4.526a2.177%202.177%200%200%200-2.22-2.298%202.292%202.292%200%200%200-2.306%202.298zM113.404%2013.293l1.016-4.544h1.807l-1.23%204.544zM116.146%2016.64c0-2.796%201.54-4.622%203.786-4.622a3.054%203.054%200%200%201%202.84%201.601h.035v-4.87h1.867v12.418h-1.808v-1.54h-.034a3.088%203.088%200%200%201-2.883%201.635c-2.263%200-3.803-1.825-3.803-4.622zm1.901%200c0%201.859.947%203.046%202.393%203.046%201.428%200%202.383-1.205%202.383-3.046%200-1.825-.955-3.038-2.383-3.038-1.446%200-2.393%201.197-2.393%203.038zM126.312%2018.594c0-1.583%201.213-2.54%203.364-2.668l2.478-.138v-.689c0-1.006-.662-1.575-1.789-1.575a1.73%201.73%200%200%200-1.902%201.275h-1.738c.052-1.636%201.574-2.797%203.691-2.797%202.16%200%203.589%201.178%203.589%202.96v6.205h-1.781v-1.49h-.043a3.237%203.237%200%200%201-2.858%201.645%202.744%202.744%200%200%201-3.011-2.728zm5.842-.818v-.697l-2.228.138c-1.11.069-1.738.55-1.738%201.325%200%20.792.654%201.308%201.652%201.308a2.17%202.17%200%200%200%202.314-2.074zM135.899%2012.113h1.772v1.541h.043a2.893%202.893%200%200%201%202.849-1.643c1.997%200%203.141%201.282%203.141%203.355v5.8h-1.867v-5.439c0-1.359-.629-2.116-1.936-2.116a2.104%202.104%200%200%200-2.144%202.34v5.216H135.9v-9.054z%27/></g><rect%20x=%27.417%27%20y=%27.417%27%20width=%27152.5%27%20height=%2739.167%27%20rx=%275%27%20stroke=%27%23A6A6A6%27%20stroke-width=%27.833%27/></g></svg>"
+                alt="App Store" class="app-icon"></a>
+            <a href="https://play.google.com/store/apps/details?id=com.dmall.mfandroid&referrer=adjust_reftag%3DcdvO3dgUx3Tmv%26utm_source%3Dweb_android_footer&pli=1"
+              target="_blank"><img
+                src="data:image/png;base64,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"
+                alt="Google Play" class="app-icon"></a>
+            <a href="https://appgallery.huawei.com/#/app/C101803793" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg viewBox='0 0 134 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath d='M123.92 0H7.416c-.663.01-1.324.068-1.979.176-.65.11-1.28.319-1.866.619-.59.302-1.13.694-1.6 1.162a6.29 6.29 0 0 0-1.163 1.6 6.536 6.536 0 0 0-.616 1.867C.082 6.077.022 6.738.016 7.4c0 .301 0 .605-.016.91v23.33c0 .307 0 .605.016.912.007.662.066 1.323.176 1.976.109.65.317 1.28.616 1.867A6.35 6.35 0 0 0 3.563 39.2c.587.3 1.216.51 1.866.624.655.107 1.316.165 1.979.173H125.891a13.17 13.17 0 0 0 1.973-.173 6.728 6.728 0 0 0 1.885-.624 6.155 6.155 0 0 0 1.6-1.163 6.253 6.253 0 0 0 1.168-1.6 6.539 6.539 0 0 0 .611-1.866c.11-.654.172-1.314.184-1.976V7.437a13.283 13.283 0 0 0-.184-1.976 6.608 6.608 0 0 0-.61-1.866A6.4 6.4 0 0 0 129.757.8a6.63 6.63 0 0 0-1.886-.619 13.173 13.173 0 0 0-1.973-.176h-.91L123.92 0z' fill='%23B6B6B6'/%3E%3Cpath d='M8.328 39.136h-.893a12.608 12.608 0 0 1-1.846-.16 5.867 5.867 0 0 1-1.634-.533 5.515 5.515 0 0 1-2.4-2.382 5.707 5.707 0 0 1-.534-1.637 12 12 0 0 1-.162-1.85c0-.209-.016-.902-.016-.902V8.336s0-.683.016-.883c.009-.621.067-1.24.173-1.853a5.661 5.661 0 0 1 .533-1.643 5.544 5.544 0 0 1 2.387-2.39 5.81 5.81 0 0 1 1.632-.532c.612-.1 1.23-.154 1.85-.163H125.884c.614.007 1.228.06 1.834.16a5.781 5.781 0 0 1 1.648.533 5.501 5.501 0 0 1 2.384 2.4c.26.513.439 1.063.534 1.63a12.8 12.8 0 0 1 .17 1.866v25.107c-.01.613-.066 1.225-.168 1.83a5.6 5.6 0 0 1-.533 1.647 5.552 5.552 0 0 1-2.384 2.376c-.518.26-1.073.44-1.645.534-.61.099-1.227.152-1.846.16H8.328v.021z'/%3E%3Crect transform='translate(8.525 7.2)' x='.203' y='.133' width='25.333' height='25.333' rx='7.128' fill='%23C8102E'/%3E%3Cpath d='M13.744 20h.672v3.312h-.672v-1.347h-1.517v1.347h-.672V20h.672v1.333h1.517V20zm3.787 1.896c0 .533-.267.827-.752.827-.486 0-.758-.296-.758-.851v-1.867h-.672V21.9c0 .93.518 1.464 1.419 1.464s1.435-.534 1.435-1.494v-1.866h-.672v1.893zm7.765.381L24.544 20h-.552l-.752 2.277L22.512 20h-.715l1.155 3.312h.557l.752-2.176.752 2.176h.563L26.728 20h-.699l-.733 2.277zm2.635-.392h1.224v-.602H27.93v-.678h1.776V20h-2.438v3.307h2.502v-.603h-1.84v-.819zm2.64 1.422h.664V20h-.664v3.307zm-11.04-.686-.302.688h-.685L19.992 20h.592l1.453 3.31h-.704l-.274-.686-1.528-.003zm.25-.597h1.011l-.512-1.187-.499 1.187zM21.395 15.784a4.219 4.219 0 0 1-4.216-4.216h.594a3.621 3.621 0 0 0 7.243 0h.595a4.219 4.219 0 0 1-4.216 4.216zM50.49 19.704l-1.165-3.277h-4.533l-1.155 3.277h-2.034l4.416-11.85h2.098l4.416 11.85h-2.042zm-1.698-4.941-1.107-3.2c-.08-.214-.192-.552-.333-1.016-.141-.464-.243-.8-.296-1.016a17.89 17.89 0 0 1-.637 2.17l-1.067 3.075 3.44-.013zM57.997 19.867a3.128 3.128 0 0 1-2.632-1.222h-.114c.077.755.114 1.214.114 1.374v3.658h-1.898V10.776H55c.045.165.133.565.267 1.195h.098c.592-.903 1.481-1.356 2.667-1.358a3.104 3.104 0 0 1 2.603 1.211c.622.809.933 1.942.933 3.4s-.316 2.596-.95 3.413a3.128 3.128 0 0 1-2.62 1.23zm-.461-7.702c-.755 0-1.304.219-1.65.662-.347.442-.534 1.146-.534 2.114v.283c0 1.088.172 1.875.515 2.36.346.488.906.73 1.688.73a1.715 1.715 0 0 0 1.517-.8c.357-.533.533-1.306.533-2.3 0-.995-.176-1.76-.533-2.273a1.763 1.763 0 0 0-1.536-.776zM67.57 19.867a3.128 3.128 0 0 1-2.631-1.222h-.115c.077.755.115 1.214.115 1.374v3.658H63.04V10.776h1.536c.043.165.13.565.267 1.195h.098c.592-.903 1.481-1.356 2.667-1.358a3.101 3.101 0 0 1 2.603 1.211c.622.809.933 1.942.933 3.4s-.316 2.596-.95 3.413a3.128 3.128 0 0 1-2.623 1.23zm-.46-7.702c-.753 0-1.305.219-1.651.662-.347.442-.534 1.146-.534 2.114v.283c0 1.088.171 1.867.518 2.36.346.493.906.73 1.685.73a1.715 1.715 0 0 0 1.517-.8c.358-.533.534-1.306.534-2.3 0-.995-.176-1.76-.534-2.273a1.763 1.763 0 0 0-1.536-.776zM77.941 13.301h4.344v5.926a12.43 12.43 0 0 1-2.048.493 14.6 14.6 0 0 1-2.117.147c-1.787 0-3.164-.534-4.133-1.6-.97-1.067-1.456-2.555-1.462-4.464 0-1.899.546-3.386 1.638-4.462 1.091-1.075 2.596-1.609 4.514-1.6a8.752 8.752 0 0 1 3.502.71l-.678 1.6a6.832 6.832 0 0 0-2.874-.662c-1.259 0-2.255.396-2.987 1.187-.732.791-1.098 1.873-1.096 3.245 0 1.444.329 2.54.987 3.291.661.75 1.6 1.125 2.848 1.125a9.25 9.25 0 0 0 2-.234v-3.046h-2.446l.008-1.656zM90.072 19.704l-.379-1.243h-.064c-.34.468-.786.848-1.301 1.11a4.083 4.083 0 0 1-1.67.296c-.878 0-1.563-.238-2.055-.712-.491-.472-.739-1.144-.739-2.011a2.357 2.357 0 0 1 1.027-2.083c.682-.465 1.723-.72 3.122-.765l1.544-.048v-.477a1.805 1.805 0 0 0-.4-1.28 1.632 1.632 0 0 0-1.24-.424 4.224 4.224 0 0 0-1.314.202c-.415.132-.82.29-1.214.475l-.613-1.355a6.667 6.667 0 0 1 1.6-.578 7.39 7.39 0 0 1 1.63-.198c1.135 0 1.993.248 2.573.744.576.496.866 1.272.866 2.334v6.013h-1.373zm-2.824-1.29a2.341 2.341 0 0 0 1.659-.58 2.093 2.093 0 0 0 .626-1.618v-.773l-1.146.048c-.89.032-1.539.181-1.95.448a1.357 1.357 0 0 0-.61 1.221c-.022.345.107.683.354.925.302.24.683.358 1.067.328zM95.099 19.704H93.2V7.144h1.899zM99.707 19.704H97.81V7.144h1.896zM105.89 19.867c-1.388 0-2.474-.406-3.258-1.216-.784-.811-1.175-1.927-1.173-3.347 0-1.458.362-2.604 1.088-3.437.725-.834 1.723-1.252 2.994-1.254 1.179 0 2.11.356 2.795 1.067.684.711 1.026 1.696 1.024 2.955v1.024h-5.95c.027.867.262 1.534.705 2a2.448 2.448 0 0 0 1.866.698c.495.004.989-.047 1.472-.152a7.613 7.613 0 0 0 1.467-.496v1.544c-.447.215-.92.371-1.405.467-.536.1-1.08.149-1.624.147zm-.349-7.816a1.907 1.907 0 0 0-1.448.573 2.744 2.744 0 0 0-.65 1.672h4.053c-.01-.738-.188-1.296-.533-1.675a1.819 1.819 0 0 0-1.422-.57zM115.616 10.613c.317-.006.633.022.944.083l-.187 1.768a3.467 3.467 0 0 0-.837-.099 2.424 2.424 0 0 0-1.845.744 2.667 2.667 0 0 0-.707 1.928v4.667h-1.899v-8.928h1.486l.25 1.573h.099a3.517 3.517 0 0 1 1.157-1.266 2.76 2.76 0 0 1 1.539-.47zM117.437 10.776h2.067l1.816 5.067c.253.653.434 1.331.539 2.024h.064c.066-.361.155-.718.266-1.067.13-.425.814-2.431 2.051-6.019h2.05l-3.818 10.115c-.693 1.856-1.849 2.785-3.467 2.787-.412 0-.824-.047-1.226-.139v-1.501c.32.067.648.1.976.096.917 0 1.56-.534 1.93-1.6l.331-.84-3.579-8.923zM41.613 32.301v-6.09h.998v6.09zM44.219 32.301v-6.09h.994v5.237h2.582v.853zM52.29 32.301h-3.447v-6.09h3.448v.842H49.84v1.659h2.296v.832H49.84v1.923h2.45zM60.472 32.301h-1.155l-1.912-2.757-.586.48v2.277h-.995v-6.09h.995v2.909c.266-.333.533-.656.8-.963l1.645-1.946h1.133c-1.066 1.244-1.829 2.133-2.288 2.666l2.363 3.424zM64.723 32.301h-3.446v-6.09h3.446v.842h-2.451v1.659h2.296v.832h-2.296v1.923h2.45zM69.552 30.648c.023.495-.196.97-.587 1.275a2.555 2.555 0 0 1-1.621.464 3.843 3.843 0 0 1-1.693-.323v-.941c.284.132.58.236.885.309a3.8 3.8 0 0 0 .875.112 1.39 1.39 0 0 0 .872-.224.741.741 0 0 0 .282-.605.763.763 0 0 0-.266-.579 3.92 3.92 0 0 0-1.067-.563 2.824 2.824 0 0 1-1.176-.77 1.64 1.64 0 0 1-.341-1.043 1.467 1.467 0 0 1 .533-1.2c.427-.311.95-.462 1.477-.427a4.267 4.267 0 0 1 1.744.384l-.317.8a3.781 3.781 0 0 0-1.45-.341 1.123 1.123 0 0 0-.734.208.701.701 0 0 0-.25.557.781.781 0 0 0 .1.406c.084.13.196.24.329.32.264.153.54.285.826.394.348.136.678.316.982.534.193.138.35.321.458.533.1.226.148.473.139.72zm-1.192 2.779c0 .618-.424.925-1.27.925-.17.001-.34-.02-.506-.061v-.571c.169.04.341.06.515.059a.776.776 0 0 0 .354-.07.267.267 0 0 0 .131-.266c0-.238-.248-.39-.744-.459l.35-.693h.634l-.173.368c.201.041.386.14.533.285.121.13.185.305.176.483zM71.725 32.301h-.986v-6.09h3.437v.842h-2.45v1.904h2.295v.846h-2.296zM78.717 32.301h-3.445v-6.09h3.445v.842H76.26v1.659h2.296v.832h-2.296v1.923h2.448zM84.99 29.197c0 1.006-.267 1.776-.838 2.307-.57.53-1.363.8-2.413.8h-1.704v-6.093h1.882c.971 0 1.726.261 2.264.784.539.522.808 1.257.808 2.202zm-1.051.035c0-1.458-.682-2.187-2.046-2.187h-.861v4.422h.707c1.466 0 2.2-.745 2.2-2.235zM86.24 25.067a.533.533 0 0 1 .144-.403.552.552 0 0 1 .41-.141.496.496 0 0 1 .534.533.533.533 0 0 1-.144.395.533.533 0 0 1-.4.144.555.555 0 0 1-.41-.144.533.533 0 0 1-.134-.384zm-44.676 0a.533.533 0 0 1 .144-.403.552.552 0 0 1 .41-.141.496.496 0 0 1 .534.533.533.533 0 0 1-.144.395.533.533 0 0 1-.4.144.555.555 0 0 1-.41-.144.533.533 0 0 1-.134-.384zm44.735 7.237v-6.093h.994v6.09l-.994.003zM93.976 32.301h-1.219l-2.997-4.853h-.032l.019.267c.04.514.058.989.058 1.416v3.165h-.904v-6.085h1.208l2.99 4.829h.024c0-.064-.016-.296-.032-.699a26.37 26.37 0 0 1-.027-.938v-3.2h.912V32.3z' fill='%23FFF'/%3E%3C/g%3E%3C/svg%3E"
+                alt="App Gallery" class="app-icon"></a>
+          </div>
+        </div>
+
+        <!-- 2. Parça (%30) -->
+        <div class="col-lg-3 d-flex flex-column">
+          <!-- 2. Parça - Üst Kısım (Yazı) -->
+          <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+            <h5>Bizi Takip Et</h5>
+          </div>
+          <!-- 2. Parça - Alt Kısım (İconlar) -->
+          <div class="flex-grow-1 d-flex justify-content-center gap-1">
+            <a href="https://www.facebook.com/n11official" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,%3C?xml%20version=%271.0%27%20encoding=%27UTF-8%27?%3E%3Csvg%20viewBox=%270%200%2040%2040%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20fill-rule=%27evenodd%27%3E%3Crect%20width=%2740%27%20height=%2740%27%20rx=%2720%27%20fill=%27%23F5F5F5%27/%3E%3Cpath%20d=%27M21.25%2016.875v-2.5c0-.69.56-1.25%201.25-1.25h1.25V10h-2.5a3.75%203.75%200%200%200-3.75%203.75v3.125H15V20h2.5v10h3.75V20h2.5L25%2016.875h-3.75z%27%20fill=%27%23424242%27%20fill-rule=%27nonzero%27/%3E%3C/g%3E%3C/svg%3E"
+                alt="Facebook" class="app-icon"></a>
+            <a href="https://x.com/n11official" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,%3C?xml%20version=%271.0%27%20encoding=%27UTF-8%27?%3E%3Csvg%20viewBox=%270%200%2040%2040%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20fill-rule=%27evenodd%27%3E%3Crect%20width=%2740%27%20height=%2740%27%20rx=%2720%27%20fill=%27%23F5F5F5%27/%3E%3Cpath%20d=%27M30%2013.924a8.549%208.549%200%200%201-2.363.647%204.077%204.077%200%200%200%201.804-2.266%208.194%208.194%200%200%201-2.6.992%204.099%204.099%200%200%200-7.092%202.804c0%20.325.027.638.095.935-3.409-.166-6.425-1.8-8.452-4.289a4.128%204.128%200%200%200-.56%202.073c0%201.42.73%202.679%201.82%203.407a4.05%204.05%200%200%201-1.852-.505v.045a4.119%204.119%200%200%200%203.285%204.03%204.092%204.092%200%200%201-1.075.134c-.262%200-.527-.015-.776-.07.531%201.624%202.039%202.818%203.831%202.857a8.239%208.239%200%200%201-5.084%201.748A7.68%207.68%200%200%201%2010%2026.41a11.543%2011.543%200%200%200%206.29%201.84c7.545%200%2011.67-6.25%2011.67-11.668%200-.18-.006-.356-.015-.53A8.18%208.18%200%200%200%2030%2013.924z%27%20fill=%27%23424242%27%20fill-rule=%27nonzero%27/%3E%3C/g%3E%3C/svg%3E"
+                alt="Twitter" class="app-icon"></a>
+            <a href="https://www.instagram.com/n11resmi/" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,%3C?xml%20version=%271.0%27%20encoding=%27UTF-8%27?%3E%3Csvg%20viewBox=%270%200%2040%2040%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20fill-rule=%27evenodd%27%3E%3Crect%20width=%2740%27%20height=%2740%27%20rx=%2720%27%20fill=%27%23F5F5F5%27/%3E%3Cg%20transform=%27translate(10%2010)%27%20fill=%27%23424242%27%20fill-rule=%27nonzero%27%3E%3Cpath%20d=%27M13.75%200h-7.5A6.25%206.25%200%200%200%200%206.25v7.5A6.25%206.25%200%200%200%206.25%2020h7.5A6.25%206.25%200%200%200%2020%2013.75v-7.5A6.25%206.25%200%200%200%2013.75%200zm4.375%2013.75a4.38%204.38%200%200%201-4.375%204.375h-7.5a4.38%204.38%200%200%201-4.375-4.375v-7.5A4.38%204.38%200%200%201%206.25%201.875h7.5a4.38%204.38%200%200%201%204.375%204.375v7.5z%27/%3E%3Cpath%20d=%27M10%205a5%205%200%201%200%200%2010%205%205%200%200%200%200-10zm0%208.125A3.13%203.13%200%200%201%206.875%2010%203.129%203.129%200%200%201%2010%206.875%203.129%203.129%200%200%201%2013.125%2010%203.13%203.13%200%200%201%2010%2013.125z%27/%3E%3Ccircle%20cx=%2715.375%27%20cy=%274.625%27%20r=%271%27/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
+                alt="Instagram" class="app-icon"></a>
+            <a href="https://www.youtube.com/user/n11comkanal" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,%3C?xml%20version=%271.0%27%20encoding=%27UTF-8%27?%3E%3Csvg%20viewBox=%270%200%2040%2040%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20fill-rule=%27evenodd%27%3E%3Crect%20width=%2740%27%20height=%2740%27%20rx=%2720%27%20fill=%27%23F5F5F5%27/%3E%3Cpath%20d=%27M29.15%2014.325c-.542-.965-1.131-1.143-2.33-1.21-1.197-.081-4.209-.115-6.818-.115-2.613%200-5.626.034-6.822.114-1.196.068-1.786.245-2.334%201.211-.559.964-.846%202.624-.846%205.546v.01c0%202.91.287%204.583.846%205.537.548.965%201.136%201.14%202.333%201.22%201.197.07%204.21.112%206.823.112%202.61%200%205.62-.041%206.82-.11%201.198-.081%201.787-.256%202.33-1.221.563-.954.848-2.627.848-5.537v-.01c0-2.923-.285-4.583-.85-5.547zm-11.65%209.3v-7.5l6.25%203.75-6.25%203.75z%27%20fill=%27%23424242%27%20fill-rule=%27nonzero%27/%3E%3C/g%3E%3C/svg%3E"
+                alt="Youtube" class="app-icon"></a>
+            <a href="https://tr.pinterest.com/n11official/" target="_blank"><img
+                src="data:image/svg+xml;charset=utf8,%3C?xml%20version=%271.0%27%20encoding=%27UTF-8%27?%3E%3Csvg%20viewBox=%270%200%2040%2040%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg%20fill-rule=%27evenodd%27%3E%3Crect%20width=%2740%27%20height=%2740%27%20rx=%2720%27%20fill=%27%23F5F5F5%27/%3E%3Cpath%20d=%27M20.397%2010C14.915%2010%2012%2013.513%2012%2017.343c0%201.776.993%203.991%202.581%204.694.242.109.373.062.427-.161.047-.17.256-.99.357-1.376a.354.354%200%200%200-.085-.347c-.527-.61-.946-1.721-.946-2.764%200-2.671%202.124-5.265%205.738-5.265%203.125%200%205.311%202.03%205.311%204.934%200%203.281-1.736%205.551-3.993%205.551-1.248%200-2.178-.98-1.883-2.192.356-1.444%201.055-2.997%201.055-4.038%200-.934-.528-1.706-1.605-1.706-1.272%200-2.303%201.259-2.303%202.949%200%201.073.38%201.798.38%201.798s-1.258%205.08-1.491%206.03c-.395%201.606.053%204.207.092%204.43.024.125.163.163.24.062.124-.162%201.644-2.331%202.07-3.899.155-.571.792-2.887.792-2.887.418.756%201.627%201.39%202.915%201.39%203.83%200%206.597-3.367%206.597-7.544C28.236%2012.996%2024.81%2010%2020.397%2010z%27%20fill=%27%23424242%27%20fill-rule=%27nonzero%27/%3E%3C/g%3E%3C/svg%3E"
+                alt="Pinterest" class="app-icon"></a>
+          </div>
+        </div>
+
+        <!-- 3. Parça (%10) -->
+        <div class="col-lg-1 d-flex flex-column">
+          <!-- 3. Parça - Üst Kısım (Yazı) -->
+          <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+            <h5>Bloga Göz At</h5>
+          </div>
+          <!-- 3. Parça - Alt Kısım (İcon) -->
+          <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+            <a href="https://blog.n11.com" target="_blank"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgOTggMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Im05Ni4xMDYgMTIuNTk3YzAuNDU3My0zLjAxMDktMS4xMTA3LTYuMTUyNy00LjA1MDctNy41MjczLTIuOTQtMS4zNzQ1LTYuMjcyLTAuNTg5MDktOC4yOTczIDEuNzAxOC00LjA1MDcgMC41ODkwOS03LjcwOTQgMy4xNDE4LTkuNTM4NyA3LjEzNDYtMi45NCA2LjI4MzYtMC4xOTYgMTMuNzQ2IDYuMDEwNyAxNi42MjYgNi4yNzIgMi45NDU0IDEzLjY1NSAwLjE5NjMgMTYuNTk1LTYuMDg3MyAxLjgyOTQtMy45MjczIDEuNDM3NC04LjM3ODItMC43MTg2LTExLjg0N3oiIGZpbGw9IiMyMzFGMUYiLz4KPHBhdGggZD0ibTg5LjExNSAyLjQ1MDljMC41MjI3IDAuMjYxODIgMS4xNzYgMCAxLjQzNzQtMC41ODkwOSAwLjI2MTMtMC41ODkxIDAuMDY1My0xLjI0MzYtMC40NTc0LTEuNTA1NS0wLjUyMjYtMC4yNjE4Mi0xLjE3NiAwLTEuNDM3MyAwLjU4OTA5LTAuMzI2NyAwLjU4OTA5LTAuMDY1MyAxLjI0MzYgMC40NTczIDEuNTA1NXoiIGZpbGw9IiMyMzFGMUYiLz4KPHBhdGggZD0ibTk1Ljk3NSA1LjY1OGMwLjUyMjcgMC4yNjE4MiAxLjE3NjEgMCAxLjQzNzQtMC41ODkwOXMwLjA2NTMtMS4yNDM2LTAuNDU3NC0xLjUwNTVjLTAuNTIyNi0wLjI2MTgyLTEuMTc2IDAtMS40MzczIDAuNTg5MDktMC4zMjY3IDAuNTg5MDktMC4wNjUzIDEuMjQzNiAwLjQ1NzMgMS41MDU1eiIgZmlsbD0iIzIzMUYxRiIvPgo8cGF0aCBkPSJtOTYuMTA2IDEyLjU5N2MwLjQ1NzMtMy4wMTA5LTEuMTEwNy02LjE1MjctNC4wNTA3LTcuNTI3My0yLjk0LTEuMzc0NS02LjI3Mi0wLjU4OTA5LTguMjk3MyAxLjcwMTgtNC4wNTA3IDAuNTg5MDktNy43MDk0IDMuMTQxOC05LjUzODcgNy4xMzQ2LTIuOTQgNi4yODM2LTAuMTk2IDEzLjc0NiA2LjAxMDcgMTYuNjI2IDYuMjcyIDIuOTQ1NCAxMy42NTUgMC4xOTYzIDE2LjU5NS02LjA4NzMgMS44Mjk0LTMuOTI3MyAxLjQzNzQtOC4zNzgyLTAuNzE4Ni0xMS44NDd6IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Im05NS41MTcgMTQuNTZjLTEuNjMzMyAzLjYtNS44OCA1LjEwNTQtOS40NzM0IDMuNDY5MS0zLjU5MzMtMS43MDE4LTUuMDk1OS01Ljk1NjQtMy40NjI2LTkuNDkwOSAxLjYzMzMtMy42IDUuODgtNS4xMDU1IDkuNDczMy0zLjQ2OTEgMy41OTMzIDEuNzAxOCA1LjE2MTQgNS45NTYzIDMuNDYyNyA5LjQ5MDl6IiBmaWxsPSIjMjMxRjFGIi8+CjxwYXRoIGQ9Im05Ni44MjQgMjQuNDQzYy0yLjk0IDYuMjgzNi0xMC4zMjMgOC45NjcyLTE2LjU5NSA2LjA4NzItNi4yNzItMi45NDU0LTguOTUwNi0xMC4zNDItNi4wMTA2LTE2LjYyNSAyLjk0LTYuMjgzNiAxMC4zMjMtOC45NjczIDE2LjU5NS02LjA4NzMgNi4yMDY3IDIuOTQ1NSA4Ljk1MDcgMTAuNDA3IDYuMDEwNyAxNi42MjV6IiBmaWxsPSIjNUQzRUJDIi8+CjxtYXNrIGlkPSJqIiB4PSI3MyIgeT0iNiIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHlsZT0ibWFzay10eXBlOmx1bWluYW5jZSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxwYXRoIGQ9Im03NC4yMTkgMTMuOTA1Yy0yLjk0IDYuMjgzNi0wLjE5NiAxMy43NDYgNi4wMTA3IDE2LjYyNiA2LjI3MiAyLjk0NTQgMTMuNjU1IDAuMTk2MyAxNi41OTUtNi4wODczIDIuOTQtNi4yODM3IDAuMTk2LTEzLjc0Ni02LjAxMDYtMTYuNjI1LTEuNjk4Ny0wLjc4NTQ1LTMuNTI4LTEuMTc4Mi01LjI5Mi0xLjE3ODItNC43MDQgMC05LjIxMiAyLjY4MzYtMTEuMzAzIDcuMjY1NHoiIGZpbGw9IiNmZmYiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI2opIj4KPG1hc2sgaWQ9ImkiIHg9IjM3IiB5PSItMSIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM0IiBzdHlsZT0ibWFzay10eXBlOmx1bWluYW5jZSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxwYXRoIGQ9Im05OS4xMTEtMC44MjIyN2gtNjEuNDEzdjMzLjY0NGg2MS40MTN2LTMzLjY0NHoiIGZpbGw9IiNmZmYiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI2kpIj4KPHBhdGggZD0ibTkyLjUxMiAxMS42NzljLTAuNzE4NyAxLjU3MDktMi42MTMzIDIuMjkwOS00LjE4MTMgMS41MDU1LTEuNTY4LTAuNzItMi4yODY3LTIuNjE4Mi0xLjUwMjctNC4xODkxIDAuNzE4Ny0xLjU3MDkgMi42MTMzLTIuMjkwOSA0LjE4MTMtMS41MDU1IDEuNTY4IDAuNzIgMi4yMjE0IDIuNjE4MiAxLjUwMjcgNC4xODkxeiIgZmlsbD0iI0ZGRDEwRCIvPgo8L2c+CjxtYXNrIGlkPSJoIiB4PSIzNyIgeT0iLTEiIHdpZHRoPSI2MyIgaGVpZ2h0PSIzNCIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJtOTkuMTExLTAuODIyMjdoLTYxLjQxM3YzMy42NDRoNjEuNDEzdi0zMy42NDR6IiBmaWxsPSIjZmZmIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNoKSI+CjxwYXRoIGQ9Im04My4xMDQgMTkuMDExYy0wLjU4OCAxLjE3ODItMS45NiAxLjcwMTgtMy4xMzYgMS4xNzgyLTEuMTc2LTAuNTg5MS0xLjY5ODctMS45NjM2LTEuMTc2LTMuMTQxOCAwLjU4OC0xLjE3ODIgMS45Ni0xLjcwMTggMy4xMzYtMS4xNzgyczEuNjk4NyAxLjk2MzYgMS4xNzYgMy4xNDE4eiIgZmlsbD0iI0ZGRDEwRCIvPgo8L2c+CjxtYXNrIGlkPSJnIiB4PSIzNyIgeT0iLTEiIHdpZHRoPSI2MyIgaGVpZ2h0PSIzNCIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJtOTkuMTExLTAuODIyMjdoLTYxLjQxM3YzMy42NDRoNjEuNDEzdi0zMy42NDR6IiBmaWxsPSIjZmZmIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNnKSI+CjxwYXRoIGQ9Im04MS40NzEgMTEuNzQ1Yy0wLjMyNjcgMC43Mi0xLjI0MTQgMS4wNDczLTEuOTYgMC43Mi0wLjcxODctMC4zMjczLTEuMDQ1NC0xLjI0MzYtMC43MTg3LTEuOTYzNiAwLjMyNjctMC43MjAwNCAxLjI0MTMtMS4wNDczIDEuOTYtMC43MjAwNCAwLjcxODcgMC4zMjcyNCAxLjA0NTMgMS4yNDM2IDAuNzE4NyAxLjk2MzZ6IiBmaWxsPSIjRkZEMTBEIi8+CjwvZz4KPG1hc2sgaWQ9ImYiIHg9IjM3IiB5PSItMSIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM0IiBzdHlsZT0ibWFzay10eXBlOmx1bWluYW5jZSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxwYXRoIGQ9Im05OS4xMTEtMC44MjIyN2gtNjEuNDEzdjMzLjY0NGg2MS40MTN2LTMzLjY0NHoiIGZpbGw9IiNmZmYiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI2YpIj4KPHBhdGggZD0ibTc4LjUzMSAyMy45ODVjLTAuMzI2NiAwLjcyLTEuMjQxMyAxLjA0NzMtMS45NiAwLjcyLTAuNzE4Ni0wLjMyNzItMS4wNDUzLTEuMjQzNi0wLjcxODYtMS45NjM2IDAuMzI2Ni0wLjcyIDEuMjQxMy0xLjA0NzMgMS45Ni0wLjcyIDAuNzE4NiAwLjMyNzMgMS4wNDUzIDEuMTc4MiAwLjcxODYgMS45NjM2eiIgZmlsbD0iI0ZGRDEwRCIvPgo8L2c+CjxtYXNrIGlkPSJlIiB4PSIzNyIgeT0iLTEiIHdpZHRoPSI2MyIgaGVpZ2h0PSIzNCIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJtOTkuMTExLTAuODIyMjdoLTYxLjQxM3YzMy42NDRoNjEuNDEzdi0zMy42NDR6IiBmaWxsPSIjZmZmIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNlKSI+CjxwYXRoIGQ9Im04Ny4yMiAyMC45NzRjLTAuNTg4IDEuMTc4Mi0wLjA2NTQgMi42MTgyIDEuMTc2IDMuMTQxOSAxLjE3NiAwLjU4OSAyLjYxMzMgMC4wNjU0IDMuMTM2LTEuMTc4MiAwLjU4OC0xLjE3ODIgMC4wNjUzLTIuNjE4Mi0xLjE3Ni0zLjE0MTgtMS4xNzYtMC41MjM3LTIuNjEzNCAwLTMuMTM2IDEuMTc4MXoiIGZpbGw9IiNGRkQxMEQiLz4KPC9nPgo8bWFzayBpZD0iZCIgeD0iMzciIHk9Ii0xIiB3aWR0aD0iNjMiIGhlaWdodD0iMzQiIHN0eWxlPSJtYXNrLXR5cGU6bHVtaW5hbmNlIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHBhdGggZD0ibTk5LjExMS0wLjgyMjI3aC02MS40MTN2MzMuNjQ0aDYxLjQxM3YtMzMuNjQ0eiIgZmlsbD0iI2ZmZiIvPgo8L21hc2s+CjxnIG1hc2s9InVybCgjZCkiPgo8cGF0aCBkPSJtOTMuODE5IDE3LjUwNWMtMC4zMjY2IDAuNzIgMCAxLjYzNjMgMC43MTg3IDEuOTYzNiAwLjcxODYgMC4zMjczIDEuNjMzMyAwIDEuOTYtMC43MiAwLjMyNjYtMC43MiAwLTEuNjM2NC0wLjcxODctMS45NjM2LTAuNzE4Ni0wLjMyNzMtMS42MzMzIDAtMS45NiAwLjcyeiIgZmlsbD0iI0ZGRDEwRCIvPgo8L2c+CjxtYXNrIGlkPSJjIiB4PSIzNyIgeT0iLTEiIHdpZHRoPSI2MyIgaGVpZ2h0PSIzNCIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJtOTkuMTExLTAuODIyMjdoLTYxLjQxM3YzMy42NDRoNjEuNDEzdi0zMy42NDR6IiBmaWxsPSIjZmZmIi8+CjwvbWFzaz4KPGcgbWFzaz0idXJsKCNjKSI+CjxwYXRoIGQ9Im04Ni4zNzEgMjcuNjUxYy0wLjMyNjYgMC43MiAwIDEuNjM2MyAwLjcxODcgMS45NjM2czEuNjMzMyAwIDEuOTYtMC43MiAwLTEuNjM2NC0wLjcxODctMS45NjM2Yy0wLjcxODYtMC4zMjczLTEuNjMzMyAwLTEuOTYgMC43MnoiIGZpbGw9IiNGRkQxMEQiLz4KPC9nPgo8L2c+CjxtYXNrIGlkPSJiIiB4PSI3MyIgeT0iNiIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHlsZT0ibWFzay10eXBlOmx1bWluYW5jZSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxwYXRoIGQ9Im03NC4yMTkgMTMuOTA1Yy0yLjk0IDYuMjgzNi0wLjE5NiAxMy43NDYgNi4wMTA3IDE2LjYyNiA2LjI3MiAyLjk0NTQgMTMuNjU1IDAuMTk2MyAxNi41OTUtNi4wODczIDIuOTQtNi4yODM3IDAuMTk2LTEzLjc0Ni02LjAxMDYtMTYuNjI1LTEuNjk4Ny0wLjc4NTQ1LTMuNTI4LTEuMTc4Mi01LjI5Mi0xLjE3ODItNC43MDQgMC05LjIxMiAyLjY4MzYtMTEuMzAzIDcuMjY1NHoiIGZpbGw9IiNmZmYiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI2IpIj4KPG1hc2sgaWQ9ImEiIHg9IjM3IiB5PSItMSIgd2lkdGg9IjYzIiBoZWlnaHQ9IjM0IiBzdHlsZT0ibWFzay10eXBlOmx1bWluYW5jZSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxwYXRoIGQ9Im05OS4xMTEtMC44MjIyN2gtNjEuNDEzdjMzLjY0NGg2MS40MTN2LTMzLjY0NHoiIGZpbGw9IiNmZmYiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI2EpIj4KPHBhdGggZD0ibTkwLjg3OSA3LjY4NjZjLTAuMTMwNi0wLjA2NTQ1LTAuMTk2LTAuMDY1NDUtMC4zMjY2LTAuMTMwOTFsLTEwLjcxNSAyMy4xMDVjMC4xMzA3IDAuMDY1NSAwLjE5NiAwLjEzMDkgMC4zMjY3IDAuMTMwOSAwLjEzMDYgMC4wNjU1IDAuMTk2IDAuMDY1NSAwLjMyNjYgMC4xMzA5bDEwLjcxNS0yMy4xMDVjLTAuMTMwNyAwLTAuMTk2LTAuMDY1NDUtMC4zMjY3LTAuMTMwOTF6IiBmaWxsPSIjMjMxRjFGIi8+CjwvZz4KPC9nPgo8cGF0aCBkPSJtNi41OTg3IDI3LjUyYy00LjQ0MjcgMC02LjU5ODctMi40MjE4LTYuNTk4Ny02LjIxODJ2LTExLjUyaDEuMTEwN2MyLjQ4MjcgMCAzLjI2NjcgMC43MTk5NyAzLjI2NjcgMi44MTQ2djMuMDEwOWMwLjcxODY3LTAuOTE2NCAxLjUwMjctMS43NjczIDMuMjY2Ny0xLjc2NzMgMy41MjggMCA2LjA3NiAyLjQyMTggNi4wNzYgNi42NzY0LTAuMDY1MyA0LjMyLTMuMDA1MyA3LjAwMzYtNy4xMjEzIDcuMDAzNnptMC4xOTYtMTAuMTQ1Yy0xLjQzNzMgMC0yLjQxNzMgMS4yNDM2LTIuNDE3MyAzLjQwMzYgMCAyLjU1MjcgMC45OCAzLjQwMzYgMi40ODI3IDMuNDAzNiAxLjQzNzMgMCAyLjM1Mi0xLjE3ODIgMi4zNTItMy4xNDE4IDAtMi42ODM2LTAuODQ5MzMtMy42NjU0LTIuNDE3My0zLjY2NTR6IiBmaWxsPSIjNUQzRUJDIi8+CjxwYXRoIGQ9Im0xOS4yNzMgMjcuMzI0Yy0yLjM1MiAwLTQuNDQyNi0xLjQ0LTQuNDQyNi00LjQ1MDl2LTEzLjA5MWgxLjU2OGMxLjk2IDAgMi44NzQ2IDAuOTE2MzcgMi44NzQ2IDMuMDc2NHY5LjM2YzAgMS4xNzgyIDAuNjUzNCAxLjUwNTQgMS44OTQ3IDEuNTA1NGgxLjA0NTN2MS41NzFjMCAxLjU3MDktMS41MDI2IDIuMDI5LTIuOTQgMi4wMjl6IiBmaWxsPSIjNUQzRUJDIi8+CjxwYXRoIGQ9Im0yOS42NjEgMTMuODQxYzMuNTI4IDAgNi42NjQgMi42ODM3IDYuNjY0IDYuNjc2NCAwIDQuMjU0NS0yLjU0OCA2LjkzODItNi45OTA3IDYuOTM4Mi0zLjY1ODYgMC02LjY2NC0yLjc0OTEtNi42NjQtNi41NDU1LTAuMDY1My00LjE4OTEgMi45NC03LjA2OTEgNi45OTA3LTcuMDY5MXptLTAuMjYxMyAzLjUzNDZjLTEuMjQxNCAwLTIuMzUyIDEuMzA5MS0yLjM1MiAzLjA3NjMgMCAyLjQ4NzMgMC45OCAzLjYgMi41NDggMy42IDEuNDM3MyAwIDIuMzUyLTEuMzA5MSAyLjM1Mi0zLjA3NjMgMC0yLjM1NjQtMS4wNDU0LTMuNi0yLjU0OC0zLjZ6IiBmaWxsPSIjNUQzRUJDIi8+CjxwYXRoIGQ9Im01MC4xNzYgMjQuNDQ0djEuMzA5YzAgMy4xNDE5LTIuNjc4NiA1LjY5NDYtNi43OTQ2IDUuNjk0Ni0zLjY1ODcgMC01LjA5Ni0xLjYzNjQtNS4wOTYtMy4yNzI3di0xLjM3NDZoMC4xMzA2YzAuNzg0IDAuNzIgMi4yODY3IDEuMTc4MiA0LjM3NzQgMS4xNzgyIDEuODk0NiAwIDIuODc0Ni0xLjA0NzMgMi44NzQ2LTIuNDIxOCAwLTAuMTk2NC0wLjA2NTMtMC41MjM3LTAuMDY1My0wLjc4NTV2LTAuNDU4MmMtMC4yNjEzIDAuODUxLTEuMzA2NyAxLjYzNjQtMi42MTMzIDEuNjM2NC0zLjI2NjcgMC01Ljg4LTEuNjM2NC01Ljg4LTUuNjk0NSAwLTMuNTM0NiAyLjgwOTMtNi40MTQ2IDcuMTg2Ni02LjQxNDYgMy45MiAwIDUuNzQ5NCAyLjI5MDkgNS43NDk0IDUuODI1NXYzLjQwMzZjMC4wNjUzIDAuMzI3MyAwLjA2NTMgMC43ODU1IDAuMTMwNiAxLjM3NDZ6bS04LjU1ODYtNC42NDczYzAgMS44OTgyIDAuOTE0NiAyLjYxODIgMi4yMjEzIDIuNjE4MiAxLjI0MTMgMCAxLjg5NDctMC45ODE5IDEuODk0Ny0yLjQyMTkgMC0xLjg5ODEtMC43MTg3LTIuNjE4MS0yLjAyNTQtMi42MTgxLTEuMzA2NiAwLjA2NTQtMi4wOTA2IDAuOTE2My0yLjA5MDYgMi40MjE4eiIgZmlsbD0iIzVEM0VCQyIvPgo8cGF0aCBkPSJtNTcuOTUxIDI3LjEyN2MtMS4zMDY2IDAtMi4zNTItMC45MTY0LTIuMzUyLTIuNDg3M3YtOS4yOTQ1bC0xLjUwMjYgMC40NTgxYy0wLjMyNjcgMC4wNjU1LTAuNjUzNCAwLjEzMS0wLjk4IDAuMTMxLTAuOTE0NyAwLTEuNjk4Ny0wLjQ1ODItMS44Mjk0LTEuMjQzN2wtMC4yNjEzLTEuNTcwOSA0LjI0NjctMS43NjczYzAuNzE4Ni0wLjMyNzIgMS41NjgtMC41MjM2IDIuNjEzMy0wLjUyMzZzMi4xNTYgMC43ODU1IDIuMTU2IDIuMDI5MXYxNC4yMDRoLTIuMDkwN3YwLjA2NTV6IiBmaWxsPSIjNUQzRUJDIi8+CjxwYXRoIGQ9Im02OC4wNzcgMjcuMTI3Yy0xLjMwNjYgMC0yLjM1Mi0wLjkxNjQtMi4zNTItMi40ODczdi05LjI5NDVsLTEuNTAyNiAwLjQ1ODFjLTAuMzI2NyAwLjA2NTUtMC42NTM0IDAuMTMxLTAuOTggMC4xMzEtMC45MTQ3IDAtMS42OTg3LTAuNDU4Mi0xLjgyOTQtMS4yNDM3bC0wLjI2MTMtMS41NzA5IDQuMjQ2Ny0xLjc2NzNjMC43MTg2LTAuMzI3MiAxLjU2OC0wLjUyMzYgMi42MTMzLTAuNTIzNnMyLjE1NiAwLjc4NTUgMi4xNTYgMi4wMjkxdjE0LjIwNGgtMi4wOTA3djAuMDY1NXoiIGZpbGw9IiM1RDNFQkMiLz4KPC9zdmc+Cg==" alt="Blog11"
+                class="app-icon"></a>
+          </div>
+        </div>
+
+        <!-- 4. Parça (%10) -->
+        <div class="col-lg-1 d-flex justify-content-center align-items-center">
+          <a href="https://www.eticaret.gov.tr/siteprofil/4C79A5CE1759448C97EB57D5E6E10CD1/wwwn11com"
+            target="_blank">
+            <img src="/Icons/Picture_6.jpg"
+              class="qr-code"></a>
+        </div>
+
+        <!-- 5. Parça (%10) -->
+        <div class="col-lg-1 d-flex justify-content-center align-items-center">
+          <a href="https://www.guvendamgasi.org.tr/view/uye/detay.php?Guid=b23c99b2-aed3-11ea-8718-48df373f4850"
+            target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QTlBMzFGRkNEMDgyMTFFOEI5OUY4MURCMTY0RDY4ODciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QTlBMzFGRkJEMDgyMTFFOEI5OUY4MURCMTY0RDY4ODciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkwQzZEMkQzQjc2NDExRThBMEFFQTc5OUMyMEQ2NEFCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjkwQzZEMkQ0Qjc2NDExRThBMEFFQTc5OUMyMEQ2NEFCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+0tk4uwAADD9JREFUeNrcXAuUlVUV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" class="app-icon"></a>
+        </div>
+      </div>
     </div>
 
-    <!-- Sağ Kısım -->
-    <div class="footer-right d-flex align-items-center">
-      <img src="/Icons/Picture_8.jpg" class="brand-icon">
-    </div>
-  </div>
+    <!-- Yeni Alt Container: Büyük Container'ın Dışında -->
+    <div class="footer-bottom-container d-flex justify-content-between align-items-center py-3">
+      <!-- Sol Kısım -->
+      <div class="footer-left">
+        <p>© Telif Hakkı 2012-2024 n11</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Müşteri Kişisel Verilerinin İşlenmesine İlişkin Aydınlatma Metni</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Kullanım Koşullarımız</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Çerez Ayarları</a>
+          </li>
+        </ul>
+      </div>
 
-    </footer>
-  </template>
-  
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  
-  export default defineComponent({
-    name: 'Footer',
-    data() {
-      return {
-        quickLinks: [
+      <!-- Sağ Kısım -->
+      <div class="footer-right d-flex align-items-center">
+        <img src="/Icons/Picture_8.jpg" class="brand-icon">
+      </div>
+    </div>
+
+  </footer>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'Footer',
+  data() {
+    return {
+      quickLinks: [
         { img: '/Icons/Picture_1.jpg', text: 'Her Alışverişte Kupon Fırsatları' },
         { img: '/Icons/Picture_2.jpg', text: 'Her Gün Yeni Ürünler ve Fırsatlar' },
         { img: '/Icons/Picture_3.jpg', text: 'Herkese Uygun Ödeme Yöntemleri' },
         { img: '/Icons/Picture_4.jpg', text: 'İade' },
-        ],
-        linkSections: [
-          {
-            title: 'n11',
-            links: ['Marka Koruma Merkezi', 'Markalar', 'İletişim'],
-          },
-          {
-            title: 'Müşteriler',
-            links: ['Üye Ol', 'Yeni Üye Rehberi', 'Yeni Üye Rehberi', 'Yardım', 'Ödeme Seçenekleri', 'İptal & İade', 'İşlem Rehberi', 'Kullanıcı Güvenliği'],
-          },
-          {
-            title: 'Popüler Sayfalar',
-            links: ['Akıllı Saat', 'Bluetooth Kulaklık', 'Cep Telefonu', 'Robot Süpürge', 'Altın'],
-          },
-          {
-            title: 'Öne Çıkan Sayfalar',
-            links: ['Saç Düzleştirici', 'Isıtıcı', 'Olta & Olta Takımı', '', 'İphone 15', 'Kahve Makinesi'],
-          },
-        ],
-        // Store links için yeni array
-        storeLinks: [
-          'Mağaza Puanı Hesaplaması',
-          'Mağaza Yardım Merkezi',
-          'Yeni Mağaza Rehberi',
-          'Kargo Rehberi'
-        ],
-      };
-    },
-  });
-  </script>
-  
-  <style scoped>
-  footer {
-    background-color: #fff;
-  }
-  
-  footer a {
-    text-decoration: none;
-  }
-  
-  footer a:hover {
-    text-decoration: underline;
-  }
+      ],
+      linkSections: [
+        {
+          title: 'n11',
+          links: ['Marka Koruma Merkezi', 'Markalar', 'İletişim'],
+        },
+        {
+          title: 'Müşteriler',
+          links: ['Üye Ol', 'Yeni Üye Rehberi', 'Yeni Üye Rehberi', 'Yardım', 'Ödeme Seçenekleri', 'İptal & İade', 'İşlem Rehberi', 'Kullanıcı Güvenliği'],
+        },
+        {
+          title: 'Popüler Sayfalar',
+          links: ['Akıllı Saat', 'Bluetooth Kulaklık', 'Cep Telefonu', 'Robot Süpürge', 'Altın'],
+        },
+        {
+          title: 'Öne Çıkan Sayfalar',
+          links: ['Saç Düzleştirici', 'Isıtıcı', 'Olta & Olta Takımı', '', 'İphone 15', 'Kahve Makinesi'],
+        },
+      ],
+      // Store links için yeni array
+      storeLinks: [
+        'Mağaza Puanı Hesaplaması',
+        'Mağaza Yardım Merkezi',
+        'Yeni Mağaza Rehberi',
+        'Kargo Rehberi'
+      ],
+    };
+  },
+});
+</script>
 
-  /* 2. Container için ortalama */
-  .custom-row {
-    display: flex;
-    justify-content: center; /* Yatayda ortala */
-    align-items: center; /* Dikeyde ortala */
-    height: 100%; /* Yüksekliği container kadar yap */
-  }
+<style scoped>
+footer {
+  background-color: #fff;
+}
 
-  /* Sütun içindeki içerikleri ortalama */
-  .custom-row .col-6 {
-    display: flex;
-    flex-direction: column; /* Dikey hizalama */
-    justify-content: center; /* Dikey ortalama */
-    align-items: center; /* Yatay ortalama */
-    text-align: center; /* İçeriği ortala */
-    height: 100%;
-  }
+footer a {
+  text-decoration: none;
+}
 
-  .custom-btn-store {
-    background-color: #fff; /* Butonun arka plan rengi */
-    color: #5D3EBC; /* Yazı rengi */
-    border: 2px solid #5D3EBC; /* Çerçeve rengi */
-    border-radius: 6px; /* Köşe yuvarlaklığı */
-  }
+footer a:hover {
+  text-decoration: underline;
+}
 
-  .custom-store-section {
-    border: 4px solid #ededed; /* Çerçeve rengi ve kalınlığı */
-    border-radius: 8px; /* Köşe yuvarlaklığı */
-    padding: 25px; /* İçerik ile çerçeve arasındaki boşluk */
-    width: 280px;
-  }
+/* 2. Container için ortalama */
+.custom-row {
+  display: flex;
+  justify-content: center;
+  /* Yatayda ortala */
+  align-items: center;
+  /* Dikeyde ortala */
+  height: 100%;
+  /* Yüksekliği container kadar yap */
+}
 
-  /* Ücretsiz Mağaza Aç Butonu */
-  .custom-btn-open-store {
-    background-color: #5D3EBC; /* Butonun arka plan rengi */
-    color: #fff; /* Yazı rengi */
-    border: 2px solid #5D3EBC; /* Çerçeve rengi */
-    border-radius: 6px; /* Köşe yuvarlaklığı */
-  }
-  
-  /* Üçüncü Container Ayarları */
+/* Sütun içindeki içerikleri ortalama */
+.custom-row .col-6 {
+  display: flex;
+  flex-direction: column;
+  /* Dikey hizalama */
+  justify-content: center;
+  /* Dikey ortalama */
+  align-items: center;
+  /* Yatay ortalama */
+  text-align: start;
+  /* İçeriği ortala */
+  height: 100%;
+}
+
+.custom-btn-store {
+  background-color: #fff;
+  /* Butonun arka plan rengi */
+  color: #5D3EBC;
+  /* Yazı rengi */
+  border: 2px solid #5D3EBC;
+  /* Çerçeve rengi */
+  border-radius: 6px;
+  /* Köşe yuvarlaklığı */
+}
+
+.custom-store-section {
+  border: 4px solid #ededed;
+  /* Çerçeve rengi ve kalınlığı */
+  border-radius: 8px;
+  /* Köşe yuvarlaklığı */
+  padding: 25px;
+  /* İçerik ile çerçeve arasındaki boşluk */
+  width: 280px;
+}
+
+/* Ücretsiz Mağaza Aç Butonu */
+.custom-btn-open-store {
+  background-color: #5D3EBC;
+  /* Butonun arka plan rengi */
+  color: #fff;
+  /* Yazı rengi */
+  border: 2px solid #5D3EBC;
+  /* Çerçeve rengi */
+  border-radius: 6px;
+  /* Köşe yuvarlaklığı */
+}
+
+/* Üçüncü Container Ayarları */
 .third-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8f9fa; /* Arka plan rengi */
+  background-color: #f8f9fa;
+  /* Arka plan rengi */
   height: 100%;
 }
 
 .third-container .col-lg-4,
 .third-container .col-lg-3,
 .third-container .col-lg-1 {
-  border: 0 solid #ddd; /* Her parçayı ayıran çerçeve */
+  border: 0 solid #ddd;
+  /* Her parçayı ayıran çerçeve */
   display: flex;
   flex-direction: column;
 }
 
 .third-container .app-icon {
-  width: 80px; /* İkon boyutu */
-  height: 40px;
+  width: 80px;
+  /* İkon boyutu */
+  height: 20px;
 }
 
 .third-container .qr-code {
-  width: 80px; /* QR kod boyutu */
+  width: 80px;
+  /* QR kod boyutu */
   height: 80px;
 }
 
@@ -262,36 +306,41 @@
   justify-content: center;
 }
 
-  .bi-arrow-right-circle-fill {
-    font-size: 1.5rem;
-    color: white;
-  }
-  
-  .img {
-    max-width: 100%;
-  }
+.bi-arrow-right-circle-fill {
+  font-size: 1.5rem;
+  color: white;
+}
 
-  .d-flex.gap-5 {
-    gap: 40px; /* Hızlı linkler arasındaki boşluğu artırma */
-  }
+.img {
+  max-width: 100%;
+}
 
-  .d-flex.gap-5 {
-    gap: 40px;
-  }
+.d-flex.gap-5 {
+  gap: 40px;
+  /* Hızlı linkler arasındaki boşluğu artırma */
+}
 
-  .d-flex.px-3 {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+.d-flex.gap-5 {
+  gap: 40px;
+}
 
-  .footer-bottom-container {
-  width: 100%; /* Genişlik tüm ekranı kaplar */
-  background-color: #f9f9f9; /* Arka plan rengi */
-  border-top: 1px solid #ccc; /* Üst çizgi */
+.d-flex.px-3 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.footer-bottom-container {
+  width: 100%;
+  /* Genişlik tüm ekranı kaplar */
+  background-color: #f9f9f9;
+  /* Arka plan rengi */
+  border-top: 1px solid #ccc;
+  /* Üst çizgi */
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* İçeriklerin esnek yerleşimi */
+  flex-wrap: wrap;
+  /* İçeriklerin esnek yerleşimi */
 }
 
 .footer-left p {
@@ -324,6 +373,4 @@
   height: auto;
   width: auto;
 }
-
 </style>
-  
