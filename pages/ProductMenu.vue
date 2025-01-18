@@ -75,7 +75,7 @@
                             </div>
                             <!-- Sepete Ekle Butonu -->
                             <button @click="toggleCart(product)"
-                                :class="['btn', product.isInCart ? 'btn-success' : 'btn-outline-primary']"
+                                :class="['btn', product.isInCart ? 'btn-success' : 'btn-outline']"
                                 :style="product.isInCart ? { backgroundColor: '#5d3ebc', color: 'white' } : {}">
                                 {{ product.isInCart ? '✓' : '+' }}
                             </button>
@@ -88,154 +88,129 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+
+// Firestore'u başlat
+const db = getFirestore();
 
 export default defineComponent({
-    name: "ProductList",
-    data() {
-        return {
-            products: [
-                {
-                    id: 1,
-                    image: ['https://n11scdn.akamaized.net/a1/602_857/10/39/16/27/IMG-4245644001429526644.jpg', 'https://n11scdn1.akamaized.net/a1/602_857/13/31/22/13/IMG-8678318709044231616.jpg', 'https://n11scdn1.akamaized.net/a1/602_857/10/80/03/59/IMG-3210138926246314090.jpg'],
-                    name: 'Xiaomi Redmi 13C 8 GB 256 GB',
-                    rating: 5,
-                    reviews: 1534,
-                    freeShipping: true,
-                    newPrice: '7.849',
-                    isFavorite: true,
-                    isInCart: false,
-                    currentImageIndex: 0,
-                },
-                {
-                    id: 2,
-                    image: ['https://n11scdn.akamaized.net/a1/602_857/10/06/54/88/IMG-8334626094009706925.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/16/43/58/64/IMG-1763576059426755351.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/12/30/67/89/IMG-3284137083717189805.jpg'],
-                    name: 'Xiaomi Redmi Note 13 Pro 12 GB 512 GB',
-                    rating: 5,
-                    reviews: 1080,
-                    freeShipping: true,
-                    newPrice: '16.299',
-                    isFavorite: false,
-                    isInCart: false,
-                    currentImageIndex: 0,
+  name: "ProductList",
+  setup() {
+    const products = ref<any[]>([]);
 
-                },
-                {
-                    id: 4,
-                    image: ['https://n11scdn.akamaized.net/a1/602_857/04/24/50/43/IMG-1394957595847336959.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/11/47/59/27/IMG-6531938349141314197.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/16/28/41/69/IMG-5713165578069952938.jpg'],
-                    name: 'Xiaomi Redmi 13 8 GB 256 GB',
-                    rating: 5,
-                    reviews: 365,
-                    freeShipping: true,
-                    newPrice: '8.399',
-                    isFavorite: false,
-                    isInCart: false,
-                },
-                {
-                    id: 3,
-                    image: ['https://n11scdn.akamaized.net/a1/602_857/15/20/52/53/IMG-6224145959892147613.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/07/47/38/48/IMG-1094684767649376295.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/07/26/04/68/IMG-7450695549168178451.jpg'],
-                    name: 'Samsung Galaxy A55 5G 8 GB 256 GB',
-                    rating: 5,
-                    reviews: 385,
-                    freeShipping: true,
-                    oldPrice: '20.069',
-                    newPrice: '19.219',
-                    isFavorite: false,
-                    isInCart: true,
-                },
-                {
-                    id: 5,
-                    image: ['https://n11scdn.akamaized.net/a1/602_857/07/73/85/29/IMG-8486161027511362752.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/05/14/89/98/IMG-4038291839461525450.jpg',
-                        'https://n11scdn1.akamaized.net/a1/602_857/08/72/79/95/IMG-3978934065991784613.jpg'],
-                    name: 'Apple iPhone 15 128 GB (Apple Türkiye Garantili)',
-                    rating: 4,
-                    reviews: 2500,
-                    freeShipping: false,
-                    oldPrice: '53.465',
-                    newPrice: '51.949',
-                    isFavorite: false,
-                    isInCart: true,
-                },
-                {
-                    id: 6,
-                    image: 'https://via.placeholder.com/150',
-                    name: 'Samsung Galaxy S22 128 GB',
-                    rating: 4.8,
-                    reviews: 1200,
-                    freeShipping: true,
-                    newPrice: '18.499',
-                    isFavorite: false,
-                    isInCart: false,
-                },
-                {
-                    id: 7,
-                    image: 'https://via.placeholder.com/150',
-                    name: 'Google Pixel 7 256 GB',
-                    rating: 4.7,
-                    reviews: 800,
-                    freeShipping: true,
-                    newPrice: '20.499',
-                    isFavorite: false,
-                    isInCart: false,
-                },
-                {
-                    id: 8,
-                    image: 'https://via.placeholder.com/150',
-                    name: 'Huawei P50 Pro 256 GB',
-                    rating: 4.6,
-                    reviews: 950,
-                    freeShipping: false,
-                    oldPrice: '22.999',
-                    newPrice: '21.499',
-                    isFavorite: false,
-                    isInCart: false,
-                },
-            ],
-        };
-    },
-    methods: {
-        toggleFavorite(product: any) {
-            product.isFavorite = !product.isFavorite;
-        },
+    // Firestore'dan veri çek
+    const fetchProducts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "ProductMenu"));
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          products.value.push({
+            id: doc.id,
+            image: [data.img1, data.img2, data.img3],
+            name: data.name,
+            rating: data.rating,
+            reviews: data.reviews,
+            freeShipping: data.freeShipping,
+            oldPrice: data.oldPrice,
+            newPrice: data.newPrice,
+            isFavorite: data.isFavorite,
+            isInCart: data.isInCart,
+            currentImageIndex: 0,
+          });
+        });
+      } catch (error) {
+        console.error("Firestore'dan veri çekerken bir hata oluştu:", error);
+      }
+    };
 
-        toggleCart(product: any) {
-            product.isInCart = !product.isInCart;
-        },
+    onMounted(() => {
+      fetchProducts();
+    });
 
-        onMouseMove(event: MouseEvent, productId: number) {
-            const product = this.products.find(p => p.id === productId);
-            if (!product) return;
+    // Favorilere ekleme metodu
+    const toggleFavorite = async (product: any) => {
+      product.isFavorite = !product.isFavorite;
 
-            const target = event.currentTarget as HTMLElement | null;
-            if (!target) return;
+      if (product.isFavorite) {
+        try {
+          await addDoc(collection(db, "Favorites"), {
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            rating: product.rating,
+            reviews: product.reviews,
+            freeShipping: product.freeShipping,
+            oldPrice: product.oldPrice,
+            newPrice: product.newPrice,
+          });
+          console.log(`${product.name} favorilere eklendi.`);
+        } catch (error) {
+          console.error("Favorilere eklerken bir hata oluştu:", error);
+        }
+      }
+    };
 
-            const rect = target.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
+    // Sepete ekleme metodu
+    const toggleCart = async (product: any) => {
+      product.isInCart = !product.isInCart;
 
-            if (mouseX < rect.width / 3) {
-                product.currentImageIndex = 0;
-            } else if (mouseX < (2 * rect.width) / 3) {
-                product.currentImageIndex = 1;
-            } else {
-                product.currentImageIndex = 2;
-            }
-        },
-        resetImageIndex(productId: number) {
-            const product = this.products.find(p => p.id === productId);
-            if (product) {
-                product.currentImageIndex = 0;
-            }
-        },
-    },
+      if (product.isInCart) {
+        try {
+          await addDoc(collection(db, "ShoppingCart"), {
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            rating: product.rating,
+            reviews: product.reviews,
+            freeShipping: product.freeShipping,
+            oldPrice: product.oldPrice,
+            newPrice: product.newPrice,
+          });
+          console.log(`${product.name} sepete eklendi.`);
+        } catch (error) {
+          console.error("Sepete eklerken bir hata oluştu:", error);
+        }
+      }
+    };
+
+    const onMouseMove = (event: MouseEvent, productId: string) => {
+      const product = products.value.find((p) => p.id === productId);
+      if (!product) return;
+
+      const target = event.currentTarget as HTMLElement | null;
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+
+      if (mouseX < rect.width / 3) {
+        product.currentImageIndex = 0;
+      } else if (mouseX < (2 * rect.width) / 3) {
+        product.currentImageIndex = 1;
+      } else {
+        product.currentImageIndex = 2;
+      }
+    };
+
+    const resetImageIndex = (productId: string) => {
+      const product = products.value.find((p) => p.id === productId);
+      if (product) {
+        product.currentImageIndex = 0;
+      }
+    };
+
+    return {
+      products,
+      toggleFavorite,
+      toggleCart,
+      onMouseMove,
+      resetImageIndex,
+    };
+  },
 });
 </script>
+
 
 <style scoped>
 .product-card {
@@ -349,5 +324,9 @@ export default defineComponent({
 
 .slider-dots .dot.active {
     background-color: #5d3ebc;
+}
+
+.btn-outline {
+    border-color: #5d3ebc;
 }
 </style>

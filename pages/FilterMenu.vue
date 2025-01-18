@@ -17,20 +17,15 @@
                     Kategoriler
                 </button>
                 <ul v-if="isCategoriesOpen" class="dropdown-menu w-100 open-menu">
-                    <li>
+                    <li v-for="(subcategories, category) in categories" :key="category">
                         <a href="#" class="category-link">
-                            Elektronik
+                            {{ category }}
                         </a>
                         <ul>
-                            <li>
+                            <li v-for="subcategory in subcategories" :key="subcategory">
                                 <a href="#" class="category-link">
-                                    Bilgisayar
+                                    {{ subcategory }}
                                 </a>
-                                <div class="sub-menu">
-                                    <a v-for="item in filteredCategories" :key="item" href="#" class="sub-menu-item">
-                                        {{ item }}
-                                    </a>
-                                </div>
                             </li>
                         </ul>
                     </li>
@@ -107,42 +102,19 @@
     </div>
 </template>
 
-
-
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default defineComponent({
     name: "SidebarFilter",
     setup() {
+        const db = getFirestore();
+
         // Veriler
-        const categories = ref([
-            "Dizüstü Bilgisayar",
-            "Bilgisayar Bileşenleri",
-            "Tablet",
-            "Çevre Birimleri",
-            "Masaüstü Bilgisayar",
-            "Aksesuar & Yedek Parça",
-            "Yazıcı, Tarayıcı ve Aksesuarları",
-            "Ofis Elektroniği",
-            "Modem & Ağ Ürünleri",
-            "Yedekleme Ürünleri",
-            "Yenilenmiş & İkinci El Ürünler"
-        ]);
-        const brands = ref([
-            "Lenovo",
-            "Asus",
-            "Hp",
-            "Dell",
-            "Acer",
-            "Qc",
-            "Ocp"
-        ]);
-        const discounts = ref([
-            "Hediyeli Kampanyalar",
-            "Sepette Ek İndirim",
-            "Kuponlu Ürünler"
-        ]);
+        const categories = ref<Record<string, string[]>>({});
+        const brands = ref<string[]>([]);
+        const discounts = ref<string[]>([]);
 
         const selectedCategories = ref<string[]>([]);
         const selectedBrands = ref<string[]>([]);
@@ -178,26 +150,49 @@ export default defineComponent({
             }
         };
 
-        // Arama Focus ve Blur Fonksiyonları
-        const onFocus = () => {
-            if (searchQuery.value === "Sonuçlarda Ara") {
-                searchQuery.value = "";
+        // Firestore'dan verileri çekme
+        const fetchFirestoreData = async () => {
+            try {
+                // Kategoriler
+                const categoriesDoc = await getDoc(doc(db, "FilterMenu", "Kategoriler"));
+                if (categoriesDoc.exists()) {
+                    categories.value = categoriesDoc.data().Elektronik || {};
+                }
+
+                // Kampanya ve İndirimler
+                const discountsDoc = await getDoc(doc(db, "FilterMenu", "Kampanya"));
+                if (discountsDoc.exists()) {
+                    discounts.value = discountsDoc.data().Kampanya;
+                }
+
+                // Markalar
+                const brandsDoc = await getDoc(doc(db, "FilterMenu", "Markalar"));
+                if (brandsDoc.exists()) {
+                    brands.value = brandsDoc.data().Markalar || [];
+                }
+            } catch (error) {
+                console.error("Firestore verileri çekilirken hata oluştu:", error);
             }
         };
 
-        const onBlur = () => {
-            if (!searchQuery.value) {
-                searchQuery.value = "Sonuçlarda Ara";
-            }
-        };
+        onMounted(() => {
+            fetchFirestoreData();
+        });
 
         const filteredCategories = computed(() => {
             if (!searchQuery.value) {
                 return categories.value;
             }
-            return categories.value.filter(category =>
-                category.toLowerCase().includes(searchQuery.value.toLowerCase())
-            );
+            const result: Record<string, string[]> = {};
+            for (const [key, value] of Object.entries(categories.value)) {
+                const filtered = value.filter(subcategory =>
+                    subcategory.toLowerCase().includes(searchQuery.value.toLowerCase())
+                );
+                if (filtered.length) {
+                    result[key] = filtered;
+                }
+            }
+            return result;
         });
 
         const filteredBrands = computed(() => {
@@ -227,8 +222,6 @@ export default defineComponent({
             isDiscountsOpen,
             brandSearchQuery,
             filteredBrands,
-            onBlur,
-            onFocus,
         };
     },
 });
@@ -448,43 +441,56 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Slider kapsayıcısı */
 .brands-slider-container {
-    max-height: 200px; /* Slider yüksekliği */
-    overflow-y: auto; /* Dikey kaydırma */
-    border-top: 1px solid #dee2e6; /* Arama çubuğu ile ayrım */
+    max-height: 200px;
+    /* Slider yüksekliği */
+    overflow-y: auto;
+    /* Dikey kaydırma */
+    border-top: 1px solid #dee2e6;
+    /* Arama çubuğu ile ayrım */
     padding: 5px;
 }
 
 /* Sabit arama çubuğu */
 .fixed-search-bar {
-    position: sticky; /* Sabit konumlandırma */
-    top: 0; /* Yukarıya sabitle */
-    background-color: white; /* Arka plan rengi */
-    z-index: 1; /* Üstte görünecek şekilde katman oluştur */
+    position: sticky;
+    /* Sabit konumlandırma */
+    top: 0;
+    /* Yukarıya sabitle */
+    background-color: white;
+    /* Arka plan rengi */
+    z-index: 1;
+    /* Üstte görünecek şekilde katman oluştur */
     padding: 5px;
-    border-bottom: 1px solid #dee2e6; /* Slider ile görsel ayrım */
+    border-bottom: 1px solid #dee2e6;
+    /* Slider ile görsel ayrım */
 }
 
 /* Kaydırma çubuğu özelleştirme */
 .brands-slider-container::-webkit-scrollbar {
-    width: 8px; /* Kaydırma çubuğu genişliği */
+    width: 8px;
+    /* Kaydırma çubuğu genişliği */
 }
 
 .brands-slider-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Arka plan rengi */
+    background: #f1f1f1;
+    /* Arka plan rengi */
 }
 
 .brands-slider-container::-webkit-scrollbar-thumb {
-    background: #888; /* Kaydırma çubuğu rengi */
+    background: #888;
+    /* Kaydırma çubuğu rengi */
     border-radius: 4px;
 }
 
 .brands-slider-container::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Kaydırma çubuğu hover rengi */
+    background: #555;
+    /* Kaydırma çubuğu hover rengi */
 }
 
 .slider-content {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Liste öğeleri arasındaki boşluk */
+    gap: 5px;
+    /* Liste öğeleri arasındaki boşluk */
 }
 </style>
