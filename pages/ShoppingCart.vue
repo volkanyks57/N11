@@ -12,6 +12,7 @@
                         </div>
                     </div>
 
+                    <!-- Önerilenler Kısmı -->
                     <div class="row mb-4">
                         <div class="col">
                             <div class="suggestions-container">
@@ -21,7 +22,6 @@
                                             class="bi bi-chevron-compact-left"></i></button>
                                     <div class="suggestions overflow-hidden" ref="suggestions">
                                         <div class="d-flex suggestions-inner">
-                                            <!-- Ürün Kartı -->
                                             <div class="suggestion-item" v-for="(item, index) in suggestedItems"
                                                 :key="index">
                                                 <div class="product-container align-items-center">
@@ -42,77 +42,28 @@
                         </div>
                     </div>
 
-
-
-
-                    <!-- 3. Parça: Sepet Detayları -->
-                    <div class="row mb-4">
-                        <div class="col-4 d-flex align-items-center">
-                            <!-- Sol Tarafa Görsel Ekleniyor -->
-                            <img src="/Icons/Picture_1.jpg" alt="Kupon İkonu"
-                                style="width: 40px; height: 40px; margin-right: 10px;">
-                            <div>
-                                <p style="text-align: start; margin: 0;">Kuponla indirimli alışverişin</p>
-                                <p style="text-align: start; margin: 0;">keyfini çıkar.</p>
-                            </div>
-                        </div>
-                        <div class="col-4 d-flex align-items-center">
-                            <!-- Sol Tarafa Favori İkonu -->
-                            <i class="fas fa-heart" style="font-size: 30px; color: #5D3EBC; margin-right: 10px;"></i>
-                            <img src="/Icons/Picture_9.jpg" alt="Kupon İkonu"
-                                style="width: 40px; height: 40px; margin-right: 10px;">
-                            <div>
-                                <p style="text-align: start; margin: 0;">Favori ürünlerini ekle ve</p>
-                                <p style="text-align: start; margin: 0;">takip et.</p>
-                            </div>
-                        </div>
-                        <div class="col-4 text-center">
-                            <button class="btn btn-primary">Hemen Giriş Yap</button>
-                        </div>
-                    </div>
-
-                    <!-- 4. Parça: Tümünü Seç Checkbox -->
-                    <div class="row mb-4">
-                        <div class="col">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" v-model="selectAll"
-                                    @change="toggleSelectAll" id="selectAll">
-                                <label class="form-check-label" for="selectAll">Tümünü Seç</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 5. Parça: Markanın İsmi ve Puan -->
-                    <div class="row mb-4">
-                        <div class="col">
-                            <a :href="brandLink" class="brand-link">{{ brandName }}</a>
-                            <span class="badge bg-success">{{ rating }}</span>
-                        </div>
-                    </div>
-
                     <!-- 6. Parça: Ürün Detayları -->
-                    <div class="row mb-4" v-for="(item, index) in cartItems" :key="index">
+                    <div class="row mb-4" v-for="(item, index) in cartItems" :key="item.id">
                         <!-- 1. Sütun: Ürün Görseli ve Checkbox -->
                         <div class="col-3 d-flex align-items-center">
                             <input class="form-check-input me-2" type="checkbox" v-model="item.selected">
                             <img :src="item.image" class="img-fluid" alt="Product"
                                 style="max-width: 60px; margin-right: 10px;">
-
-                            <!-- Ürün İsmi ve Butonlar -->
                             <div class="d-flex flex-column">
-                                <!-- Ürün İsmi -->
                                 <p class="mb-2">{{ item.name }}</p>
-
-                                <!-- +, - ve Silme Butonları -->
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center" style="margin-left: -20px;">
                                     <button @click="decreaseQuantity(item)"
-                                        class="btn btn-sm btn-outline-secondary me-2"
-                                        :disabled="item.quantity <= 1"><i class="bi bi-dash"></i></button>
+                                        class="btn btn-sm btn-outline-secondary me-2" :disabled="item.quantity <= 1">
+                                        <i class="bi bi-dash"></i>
+                                    </button>
                                     <span class="mx-2">{{ item.quantity }}</span>
                                     <button @click="increaseQuantity(item)"
-                                        class="btn btn-sm btn-outline-secondary me-2"><i class="bi bi-plus"></i></button>
-                                    <button @click="removeItem(index)" class="btn btn-sm"><i
-                                            class="bi bi-trash"></i></button>
+                                        class="btn btn-sm btn-outline-secondary me-2">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                    <button @click="removeItem(item.id)" class="btn btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -130,84 +81,47 @@
                         </div>
                     </div>
 
-
-
                 </div>
             </div>
 
             <!-- 2. Container: Sipariş Özeti -->
             <div class="col-12 col-lg-4">
-    <div class="order-summary">
-        <h4>Sipariş Özeti</h4>
-        
-        <!-- Sipariş Tutarı -->
-        <div class="d-flex justify-content-between">
-            <p>Sipariş Tutarı ({{ cartItems.length }} ürün):</p>
-            <p>{{ totalItemsCost }} TL</p>
-        </div>
-
-        <!-- Kargo Tutarı -->
-        <div class="d-flex justify-content-between">
-            <p>Kargo Tutarı:</p>
-            <p>{{ totalShipping }} TL</p>
-        </div>
-
-        <!-- Kargo İndirimi -->
-        <div class="d-flex justify-content-between">
-            <p style="color: #5D3EBC;">Kargo İndirimi:</p>
-            <p>-{{ shippingDiscount }} TL</p>
-        </div>
-
-        <!-- Toplam Tutar -->
-        <div class="d-flex justify-content-between">
-            <p class="text-muted"><strong>Toplam Tutar:</strong></p>
-            <p class="text-muted"><strong>{{ totalPrice }} TL</strong></p>
-        </div>
-        
-        <!-- Satın Al Butonu Ortalanmış -->
-        <div class="d-flex justify-content-center mt-3">
-            <button class="btn btn-primary w-100">Satın Al</button>
-        </div>
-
-        <p><a href="#" class="d-block mt-3 text-center">Sepetine Özel Taksit Seçenekleri</a></p> <!-- Link ekledik -->
-    </div>
-</div>
-
+                <div class="order-summary">
+                    <h4>Sipariş Özeti</h4>
+                    <div class="d-flex justify-content-between">
+                        <p>Sipariş Tutarı ({{ cartItems.length }} ürün):</p>
+                        <p>{{ totalItemsCost }} TL</p>
+                    </div>
+                    <div class="d-flex justify-content-between" v-if="cartItems.length > 0">
+                        <p>Kargo Tutarı:</p>
+                        <p>{{ totalShipping }} TL</p>
+                    </div>
+                    <div class="d-flex justify-content-between" v-if="cartItems.length > 0">
+                        <p style="color: #5D3EBC;">Kargo İndirimi:</p>
+                        <p>-{{ shippingDiscount }} TL</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="text-muted"><strong>Toplam Tutar:</strong></p>
+                        <p class="text-muted"><strong>{{ totalPrice }} TL</strong></p>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary w-100">Satın Al</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { SassColor } from 'sass';
 import { defineComponent } from 'vue';
+import { getFirestore, collection, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 export default defineComponent({
     name: 'CartPage',
     data() {
         return {
-            cartItems: [
-                {
-                    name: 'Apple iPhone 13 128 GB',
-                    price: 33979,
-                    image: 'https://n11scdn.akamaized.net/a1/64/10/11/82/61/IMG-4797759745854285841.jpg',
-                    quantity: 1,
-                    selected: true,
-                },
-                {
-                    name: 'Apple iPhone 13 128 GB',
-                    price: 33739,
-                    image: 'https://n11scdn.akamaized.net/a1/64/10/11/82/61/IMG-4797759745854285841.jpg',
-                    quantity: 2,
-                    selected: true,
-                },
-                {
-                    name: 'Apple iPhone 13 128 GB',
-                    price: 33559,
-                    image: 'https://n11scdn.akamaized.net/a1/64/07/02/35/69/IMG-4605448414345744716.jpg',
-                    quantity: 1,
-                    selected: true,
-                },
-            ],
+            cartItems: [] as any[], // Firestore'dan çekilen ürünler burada saklanacak
             suggestedItems: [
                 {
                     name: 'Galatasaray Puma 2024/2025 Parçalı İç Saha Forması',
@@ -233,13 +147,18 @@ export default defineComponent({
             brandName: 'eminönümarketim',
             brandLink: 'https://www.example.com',
             rating: 10,
-            selectAll: true, // Başlangıç durumu: Tümünü Seç kapalı
+            selectAll: true, // Tümünü Seç başlatma durumu
             shippingCost: 50,
             shippingDiscount: 10,
         };
     },
     computed: {
+        firstImage() {
+            return this.suggestedItems.length > 0 ? this.suggestedItems[0].image : 'https://via.placeholder.com/150';
+        },
+
         totalPrice() {
+            if (this.cartItems.length === 0) return '0.00'; // Sepet boşsa toplam fiyat 0
             const totalItemsPrice = this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const totalShipping = this.shippingCost - this.shippingDiscount;
             return (totalItemsPrice + totalShipping).toFixed(2);
@@ -248,9 +167,12 @@ export default defineComponent({
             return this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
         },
         totalShipping() {
+            // Eğer sepet boşsa kargo 0
+            if (this.cartItems.length === 0) return '0.00';
             return (this.shippingCost - this.shippingDiscount).toFixed(2);
         },
     },
+
     methods: {
         scrollLeft() {
             const suggestions = this.$refs.suggestions as HTMLElement;
@@ -260,33 +182,92 @@ export default defineComponent({
             const suggestions = this.$refs.suggestions as HTMLElement;
             suggestions.scrollLeft += 200;
         },
-        increaseQuantity(item: any) {
-            item.quantity++;
-        },
-        decreaseQuantity(item: any) {
-            if (item.quantity > 1) {
-                item.quantity--;
+        // Sepetten bir ürün kaldırma
+        async removeItem(itemId: string) {
+            const db = getFirestore();
+            const itemRef = doc(db, 'ShoppingCart', itemId);
+            try {
+                await deleteDoc(itemRef);
+                this.cartItems = this.cartItems.filter(item => item.id !== itemId); // Vue'deki listeyi güncelle
+                console.log(`Ürün (${itemId}) başarıyla silindi.`);
+            } catch (error) {
+                console.error('Ürün silinirken hata oluştu:', error);
+                alert('Ürün silinirken bir hata oluştu. Lütfen tekrar deneyin.');
             }
         },
-        removeItem(index: number) {
-            this.cartItems.splice(index, 1);
+
+        // Sepeti tamamen temizleme
+        async clearCart() {
+            const db = getFirestore();
+            try {
+                const deletePromises = this.cartItems.map(item => deleteDoc(doc(db, 'ShoppingCart', item.id)));
+                await Promise.all(deletePromises); // Tüm öğeleri sil
+                this.cartItems = []; // Vue'deki local state'i sıfırla
+                console.log('Sepet başarıyla temizlendi.');
+            } catch (error) {
+                console.error('Sepet temizlenirken hata oluştu:', error);
+                alert('Sepet temizlenirken bir hata oluştu. Lütfen tekrar deneyin.');
+            }
         },
         toggleSelectAll() {
-            // selectAll durumuna göre tüm ürünlerin seçimini ayarla
             this.cartItems.forEach(item => {
                 item.selected = this.selectAll;
             });
         },
+        async increaseQuantity(item: any) {
+            item.quantity += 1;
+            const db = getFirestore();
+            const itemRef = doc(db, 'ShoppingCart', item.id);
+            try {
+                await updateDoc(itemRef, { quantity: item.quantity });
+                console.log('Ürün miktarı güncellendi.');
+            } catch (error) {
+                console.error('Ürün miktarı güncellenirken hata oluştu:', error);
+            }
+        },
+        async decreaseQuantity(item: any) {
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+                const db = getFirestore();
+                const itemRef = doc(db, 'ShoppingCart', item.id);
+                try {
+                    await updateDoc(itemRef, { quantity: item.quantity });
+                    console.log('Ürün miktarı güncellendi.');
+                } catch (error) {
+                    console.error('Ürün miktarı güncellenirken hata oluştu:', error);
+                }
+            }
+        },
     },
     watch: {
-        // Eğer bir üründeki seçim değişirse, Tümünü Seç checkbox'unu güncelle
+        // Seçim durumlarında "Tümünü Seç" güncellenmesi
         cartItems: {
             handler() {
                 this.selectAll = this.cartItems.every(item => item.selected);
             },
-            deep: true
-        }
-    }
+            deep: true,
+        },
+    },
+    mounted() {
+        const db = getFirestore();
+        const cartRef = collection(db, 'ShoppingCart');
+        onSnapshot(cartRef, (snapshot) => {
+            this.cartItems = snapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    id: doc.id,
+                    ...data,
+                    price: Number(data.newPrice || 0), // Fiyat alanını güvenli bir şekilde al
+                    image: data.image[0] || 'https://via.placeholder.com/150', // Varsayılan resim kullan
+                    quantity: data.quantity || 1, // Varsayılan miktar
+                    selected: data.selected || true, // Varsayılan seçim durumu
+                };
+            });
+            console.log('Sepet ürünleri yüklendi:', this.cartItems);
+        }, (error) => {
+            console.error('Veriler yüklenirken hata oluştu:', error);
+        });
+    },
 });
 </script>
 
@@ -512,6 +493,7 @@ button {
     color: white;
     /* İşaretli olduğunda içerik rengi */
 }
+
 /*
 .order-summary {
     background-color: #fff;
