@@ -1,44 +1,36 @@
 <template>
-  <div class="container" style="width: 1188px; height: 714px;">
+  <div v-if="product" class="container" style="width: 1188px; height: 714px;">
     <div class="row h-100">
       <!-- Sol Bölüm: Görsel Büyüteç -->
       <div class="col-4" id="magnifier-container" style="width: 400px; height: 658px;">
-        <!-- Üst Kutu: Büyük Görsel -->
         <div id="magnifier-main-image" class="image-container" @mousemove="magnifyImage" @mouseleave="resetMagnify"
           style="height: 569px; position: relative; overflow: hidden;">
-          <img :src="selectedImage" alt="Large View" class="image magnify-cursor" ref="magnifyImg"
+          <img :src="selectedImage || product.mainImage" alt="Large View" class="image magnify-cursor" ref="magnifyImg"
             style="width: 100%; height: 100%; transition: transform 0.3s;" />
+          />
         </div>
-
-        <!-- Alt Kutu: Küçük Görseller -->
         <div id="magnifier-thumbnails" class="d-flex flex-wrap mt-2 align-items-start">
-          <div v-for="(image, index) in images" :key="index" class="thumbnail-container"
+          <div v-for="(image, index) in product.images" :key="index" class="thumbnail-container"
             :class="{ 'selected-thumbnail': selectedImage === image }" @click="selectImage(image)">
             <img :src="image" alt="Thumbnail" class="thumbnail" />
           </div>
         </div>
       </div>
-
       <!-- Orta Bölüm: Dinamik İçerik -->
       <div class="col-4" id="dynamic-content-container" style="width: 509px; height: 534px;">
         <div id="dynamic-content-header"
           style="height: 52px; display: flex; align-items: center; justify-content: center;">
-          <h1
-            style="font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -.2px; color: #1f1f1f; overflow: hidden; text-overflow: ellipsis; 
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-            Sony Playstation 5 Slim 1 TB Standart Edition Konsol + 2 Kol + PS5 FC 24 (İthalatçı Garantili)
-          </h1>
+          <span style="font-size: 20px; font-weight: 600;">{{ product.title }}</span>
         </div>
-
         <div id="dynamic-content-rating"
           style="height: 18px; display: flex; align-items: center; padding: 0 10px; font-size: 14px;">
           <span class="me-2">
             <i v-for="star in totalStars" :key="star" class="bi bi-star-fill"
-              :class="{ 'text-warning': star <= rating, 'text-muted': star > rating }"></i>
+              :class="{ 'text-warning': star <= product.rating, 'text-muted': star > product.rating }"></i>
           </span>
-          <span class="me-2">{{ rating }}</span>
+          <span class="me-2">{{ product.rating }}</span>
           <span class="me-2">|</span>
-          <a href="#" style="text-decoration: none; color: #5d3ebc;" class="me-2">87 Değerlendirme</a>
+          <a href="#" style="text-decoration: none; color: #5d3ebc;" class="me-2">637 Değerlendirme</a>
           <a href="https://www.example.com">
             <i class="bi bi-camera" style="color: #007bff;"></i>
           </a>
@@ -49,20 +41,14 @@
           <!-- İlk Parça (509x134) -->
           <div id="dynamic-content-price-top" style="height: 134px; width: 509px; display: flex;">
             <!-- İlk Parçayı Dikeyde Bölme -->
-            <div style="height: 134px; width: 350px;">
+            <div style="height: 134px; width: 350px; display: flex; flex-direction: column; justify-content: flex-end;">
               <!-- İlk Parçayı Yatayda Bölme -->
-              <div id="price" style="height: 116px; width: 350px; position: relative;">
-                <span
-                  style="position: absolute; bottom: 10px; left: 10px; color: black; font-size: 28px; font-weight: bold;">
-                  28.500 TL
-                </span>
-              </div>
+              <div style="font-size: 20px; font-weight: bold;">{{ product.price.toLocaleString('tr-TR') }} TL</div>
               <div style="height: 18px; width: 350px;">
                 <span class="text-credit" style="
-                     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                     font-size: 13px; "><a href="#" style="color: black; text-decoration: none;"><i
-                      class="bi bi-stack"></i>1.649,59 TL x 36 ay alışveriş kredisi seçeneği
-                    ile</a></span>
+         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+         font-size: 13px; "><a href="#" style="color: black; text-decoration: none;"><i
+                      class="bi bi-stack"></i>1.212,04 TL x 36 ay alışveriş kredisi seçeneği ile</a></span>
               </div>
             </div>
 
@@ -72,7 +58,7 @@
                 style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; font-size: 12px;">
                 <!-- İlk Bölüm -->
                 <button id="heart-button" class="icon-button">
-                  <i class="bi bi-heart-fill"></i>
+                  <i class="bi bi-heart"></i>
                 </button>
                 <!-- İkinci Bölüm -->
                 <button id="add-list-button" class="icon-button">
@@ -121,7 +107,7 @@
             style="display: flex; align-items: center; border: 0.5px solid #d3d6df; border-radius: 5px; padding: 4px;">
             <a href="#" style="text-decoration: none; text-align: center;">
               <span style="display: block; font-size: 12px; color: #bfbfbf;">Kol Sayısı</span>
-              <span style="display: block; font-size: 14px; color: black;">2</span>
+              <span style="display: block; font-size: 14px; color: black;">1</span>
             </a>
           </div>
 
@@ -130,7 +116,7 @@
             style="display: flex; align-items: center; border: 0.5px solid #d3d6df;  border-radius: 5px; padding: 4px;">
             <a href="#" style="text-decoration: none; text-align: center;">
               <span style="display: block; font-size: 12px; color: #bfbfbf;">Disk Yuvası</span>
-              <span style="display: block; font-size: 14px; color: black;">Diskli</span>
+              <span style="display: block; font-size: 14px; color: black;">Dijital</span>
             </a>
           </div>
         </div>
@@ -156,10 +142,10 @@
               <div
                 style="width: 100%; height: 21px; display: flex; align-items: center; gap: 8px; border-top: 1px solid #d3d6df; padding-top: 8px;">
                 <span><i class="bi bi-truck"></i></span>
-                <span style="font-size: 14px; color: black;">Yurtiçi Kargo - <strong>Ücretsiz Kargo</strong></span>
+                <span style="font-size: 14px; color: black;">Sendeo Kargo - <strong>Ücretsiz Kargo</strong></span>
               </div>
               <!-- Kargo Bilgi Paragrafı -->
-              <p style="font-size: 12px; color: #555; margin-top: 8px; margin-bottom: 4px;">En geç 6 Aralık Cuma günü
+              <p style="font-size: 12px; color: #555; margin-top: 8px; margin-bottom: 4px;">En geç 9 Ocak Perşembe günü
                 kargoya verilir.</p>
               <!-- Detay Bilgisi -->
               <span style="font-size: 12px; color: #5d3ebc; text-decoration: none; cursor: pointer;">
@@ -174,12 +160,13 @@
       <!-- Sağ Bölüm: Ek Detaylar -->
       <div class="col-4" id="additional-details-container" style="width: 225px; height: 351px;">
         <!-- Additional Details Header -->
-        <div id="additional-details-header" style="height: 91px; background-color: #f5f5f5; margin-bottom: 100px">
+        <div id="additional-details-header" style="position: center; height: 91px; background-color: #f5f5f5; margin-bottom: 100px">
           <div class="inner-box"
             style="position: absolute; top: 16px; left: 16px; right: 16px; height: 59px; display: flex; flex-direction: column; padding: 8px; box-sizing: border-box;">
             <!-- İlk Parça -->
             <div style="flex: 1; display: flex; align-items: center; justify-content: space-between;">
-              <span style="cursor: pointer; color: #5d3ebc; font-size: 14px;">Yasin_Elektronik</span>
+              <span style="cursor: pointer; color: #5d3ebc; font-size: 14px;">B-T-Teknoloji
+              </span>
               <span
                 style="background-color: green; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">10.0</span>
             </div>
@@ -206,7 +193,7 @@
               style="width: 192px; height: 151px; background-color: white; ; display: flex; flex-direction: column;">
               <!-- Yatayda Üç Parça -->
               <div style="flex: 1; display: flex; align-items: center; justify-content: space-between;">
-                <span style="cursor: pointer; color: black; font-size: 14px;"><strong>216ticaret</strong></span>
+                <span style="cursor: pointer; color: black; font-size: 14px;"><strong>Techburada</strong></span>
                 <span
                   style="background-color: green; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">10.0</span>
               </div>
@@ -215,12 +202,12 @@
                   <span style="color: #1f1f1f; font-size: small;">
                     Aras Kargo -
                     <span style="color: #5d3ebc;">Ücretsiz Kargo</span>
-                    <br> 5 Aralık Perşembe Günü Kargoda
+                    <br> 8 Ocak Çarşamba Günü Kargoda
                   </span>
                 </a>
               </div>
               <div style="flex: 1; display: flex; align-items: flex-end; justify-content: flex-start; padding: 4px;">
-                <span><strong>29.899 TL</strong></span>
+                <span><strong>20.979 TL</strong></span>
               </div>
             </div>
           </div>
@@ -231,22 +218,65 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, defineComponent } from "vue";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-export default {
+export default defineComponent({
   name: "ContainerComponent",
   setup() {
-    // Görseller
-    const images = ref([
-      "https://n11scdn.akamaized.net/a1/602_857/07/95/40/94/IMG-1288835993733231507.jpg",
-      "https://n11scdn.akamaized.net/a1/602_857/16/43/91/69/IMG-6102585427862479739.jpg",
-      "https://n11scdn.akamaized.net/a1/602_857/11/00/98/25/IMG-3010399050909408066.jpg",
-    ]);
+    // Ürün veri yapısı
+    interface Product {
+      description: string;
+      images: string[];
+      mainImage: string;
+      price: number;
+      rating: number;
+      reviewsCount: number;
+      shipping: {
+        deliveryDate: Date;
+        provider: string;
+        relatedStores: string[];
+        type: string;
+      };
+      title: string;
+    }
 
-    // İlk Görsel
-    const selectedImage = ref(images.value[0]);
+    const product = ref<Product | null>(null);
+    const images = ref<string[]>([]);
+    const selectedImage = ref(product.value ? product.value.mainImage : "");
 
-    // Resim seçimi
+    const fetchProduct = async () => {
+      const db = getFirestore(); // Firestore erişimi
+      const docRef = doc(db, "products", "ps5-slim-1tb-digital");
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        product.value = {
+          description: data.description,
+          images: data.images,
+          mainImage: data.mainImage,
+          price: data.price,
+          rating: data.rating,
+          reviewsCount: data.reviewsCount,
+          shipping: {
+            deliveryDate: data.shipping.deliveryDate.toDate(), // Timestamp'ten Date'e dönüştür
+            provider: data.shipping.provider,
+            relatedStores: data.shipping.relatedStores,
+            type: data.shipping.type,
+          },
+          title: data.title,
+        };
+        selectedImage.value = data.mainImage;
+      } else {
+        console.error("Belirtilen belge bulunamadı.");
+      }
+    };
+
+    onMounted(() => {
+      fetchProduct();
+    });
+
     const selectImage = (image: string) => {
       selectedImage.value = image;
     };
@@ -276,10 +306,11 @@ export default {
       magnifyImage,
       resetMagnify,
       totalStars: [1, 2, 3, 4, 5],
-      rating: 5
+      rating: 5,
+      product,
     };
   },
-};
+});
 </script>
 
 <style scoped>
@@ -331,9 +362,7 @@ export default {
 .icon-button {
   background-color: transparent;
   border: 0.5px solid black;
-  /* Çerçeve rengi ve kalınlığı */
   border-radius: 50%;
-  /* Daire şeklinde */
   font-size: 24px;
   cursor: pointer;
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -341,7 +370,6 @@ export default {
   justify-content: center;
   align-items: center;
   width: 40px;
-  /* Buton boyutları */
   height: 40px;
 }
 
@@ -352,36 +380,28 @@ export default {
 
 #heart-button:hover i {
   color: #5d3ebc;
-  /* Hover durumunda mor */
   transform: scale(1.2);
-  /* Hafif büyüme efekti */
 }
 
 /* Add New List İkonu */
 #add-list-button i {
   color: black;
-  /* İlk başta siyah renk */
 }
 
 #add-list-button:hover i {
   color: #5d3ebc;
-  /* Hover durumunda mor */
   transform: rotate(180deg);
-  /* 180 derece döndürme efekti */
 }
 
 #dynamic-content-addBasket:hover {
   background-color: #3c27a0;
-  /* Daha koyu bir mor ton */
   transition: background-color 0.3s ease;
 }
 
 #additional-details-header {
   position: relative;
   padding: 16px;
-  /* Kutunun her tarafına 16px padding */
   box-sizing: border-box;
-  /* Padding dahilinde hesaplama yapılması için */
 }
 
 .inner-box {
