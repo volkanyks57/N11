@@ -30,7 +30,8 @@
                         <!-- Ürün Görselleri -->
                         <img v-for="(image, index) in product.image" :key="index"
                             v-show="product.currentImageIndex === index" :src="image" :alt="product.name"
-                            class="product-image" />
+                            class="product-image"
+                            @click="goToProductPage" />
 
                         <!-- Slider Dots -->
                         <div class="slider-dots position-absolute" style="bottom: 10px;">
@@ -200,12 +201,19 @@ export default defineComponent({
       }
     };
 
+    const router = useRouter();
+
+    const goToProductPage = () => {
+      router.push(`/ProductPage`); // Herhangi bir ürüne tıklanıldığında aynı sayfaya gider
+    };
+
     return {
       products,
       toggleFavorite,
       toggleCart,
       onMouseMove,
       resetImageIndex,
+      goToProductPage,
     };
   },
 });

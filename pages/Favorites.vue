@@ -34,12 +34,10 @@
       <div class="col-8 right-panel">
         <!-- Sekme Başlıkları -->
         <div class="tab-header">
-          <button class="btn tab-button" :class="{ active: activeTab === 'favorilerim' }"
-            @click="activeTab = 'favorilerim'">
+          <button class="btn tab-button" :class="{ active: activeTab === 'favorilerim' }" @click="setActiveTab('favorilerim')">
             Favorilerim
           </button>
-          <button class="btn tab-button" :class="{ active: activeTab === 'listelerim' }"
-            @click="activeTab = 'listelerim'">
+          <button class="btn tab-button" :class="{ active: activeTab === 'listelerim' }" @click="setActiveTab('listelerim')">
             Listelerim
           </button>
         </div>
@@ -48,7 +46,7 @@
           <h5>Kategori:</h5>
           <ul class="category-tabs">
             <li v-for="category in Object.keys(groupedProducts)" :key="category"
-              :class="{ active: selectedCategory === category }" @click="selectedCategory = category">
+              :class="{ active: selectedCategory === category }" @click="setSelectedCategory(category)">
               <i :class="categoryIcons[category]" style="margin-right: 8px;"></i> {{ category }}
             </li>
           </ul>
@@ -104,102 +102,48 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue';
-import { getFirestore, collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
-
-const db = getFirestore();
+import { defineComponent, computed, onMounted, ref } from 'vue';
+import { useFavoritesStore } from '../stores/favoritesStore';
 
 export default defineComponent({
   name: 'Favorites',
   setup() {
-    const activeTab = ref('favorilerim');
-    const selectedCategory = ref('Tümü');
+    const store = useFavoritesStore();
 
-    // Favori ürünler dizisi
-    const favoriteProducts = ref<any[]>([]);
-
-    // Firestore'dan verileri çekme
-    const fetchFavorites = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'Favorites'));
-        favoriteProducts.value = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            name: data.name || 'Bilinmeyen Ürün',
-            image: (data.image && data.image[0]) || '/placeholder.jpg', // İlk görseli al veya varsayılan görsel
-            price: Number(data.newPrice || 0), // Eksikse varsayılan fiyat
-            category: data.category || 'Diğer',
-            rating: data.rating || 0,
-            reviewCount: data.reviews || 0,
-            freeShipping: data.freeShipping || false,
-          };
-        });
-      } catch (error) {
-        console.error("Veriler alınırken bir hata oluştu:", error);
-      }
-    };
-
-    // Ürünleri kategorilere göre gruplandırma
-    const groupedProducts = computed(() => {
-      return favoriteProducts.value.reduce((groups: Record<string, any[]>, product) => {
-        if (!groups[product.category]) {
-          groups[product.category] = [];
-        }
-        groups[product.category].push(product);
-        return groups;
-      }, { Tümü: favoriteProducts.value });
-    });
-
-    // Firestore'dan ürünü silme
-    const deleteProduct = async (id: string) => {
-      await deleteDoc(doc(db, 'Favorites', id));
-      favoriteProducts.value = favoriteProducts.value.filter(product => product.id !== id);
-    };
+    // Store'dan reactive veriler
+    const activeTab = computed(() => store.activeTab);
+    const selectedCategory = computed(() => store.selectedCategory);
+    const groupedProducts = computed(() => store.groupedProducts);
+    const menuItems = computed(() => store.menuItems);
+    const categoryIcons = computed(() => store.categoryIcons);
 
     const activeMenuItem = ref('');
 
-    const menuItems = ref([
-      'Siparişlerim',
-      'İptal/Değişim/İade',
-      'Kuponlarım',
-      'Garajım',
-      'pet11e Kayıtlı Dostlarım',
-      'Favorilerim & Listelerim',
-      'Değerlendirmelerim',
-      'Soru ve Cevaplarım',
-      'Üyelik Bilgilerim',
-      'Adreslerim',
-      'Şifre Değiştir',
-      'Üyelik İptali',
-    ]);
+    // Store içindeki metodları bileşen içinde kullanmak
+    const setActiveTab = store.setActiveTab;
+    const setSelectedCategory = store.setSelectedCategory;
+    const deleteProduct = store.deleteProduct;
 
-    const categoryIcons: Record<string, string> = {
-      Elektronik: "bi bi-phone",
-      "Spor & Outdoor": "bi bi-bicycle",
-      Moda: "bi bi-bag",
-      Ev: "bi bi-house",
-      Otomotiv: "bi bi-car-front-fill",
-    };
-
-    // onMounted içinde fetchFavorites çağrılıyor
     onMounted(() => {
-      fetchFavorites();
+      store.fetchFavorites();
     });
 
     return {
       activeTab,
       selectedCategory,
-      favoriteProducts,
       groupedProducts,
-      deleteProduct,
       menuItems,
-      activeMenuItem,
       categoryIcons,
+      activeMenuItem,
+      setActiveTab,
+      setSelectedCategory,
+      deleteProduct,
     };
   },
 });
 </script>
+
+
 
 
 <style scoped>

@@ -3,7 +3,7 @@
     <!-- Üst Container -->
     <div class="upper-container d-flex align-items-center justify-content-between">
       <!-- Logo -->
-      <a class="navbar-brand text-white fw-bold" href="#">
+      <a class="navbar-brand text-white fw-bold" href="/">
         <img
           src="https://n11scdn.akamaized.net/a1/org/24/11/08/47/65/48/85/00/61/13/42/02/98490134802964002749.svg"
           width="258"
@@ -45,6 +45,11 @@
           <span>Teslimat Adresi </span>
         </a>
       </div>
+
+      <router-link to="/Favorites" class="text-white me-4 d-flex align-items-center">
+        <i class="bi bi-heart"></i>
+        <span></span>
+      </router-link>
 
       <router-link to="/ShoppingCart" class="text-white me-4 d-flex align-items-center">
         <i class="bi bi-cart me-1"></i>

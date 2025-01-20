@@ -2,7 +2,7 @@
   <div id="carouselExampleRide" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button
-        v-for="(image, index) in carouselImages"
+        v-for="(image, index) in carouselStore.images"
         :key="index"
         type="button"
         :data-bs-target="'#carouselExampleRide'"
@@ -13,7 +13,7 @@
     </div>
     <div class="carousel-inner">
       <div
-        v-for="(image, index) in carouselImages"
+        v-for="(image, index) in carouselStore.images"
         :key="index"
         :class="['carousel-item', { active: index === 0 }]"
       >
@@ -41,21 +41,41 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+import { useCarouselStore } from '../stores/carouselStore';
+
+// Store'u kullan
+const carouselStore = useCarouselStore();
+
+// Bileşen yüklendiğinde verileri çek
+onMounted(() => {
+  carouselStore.fetchCarouselImages();
+});
+</script>
+
 <style scoped>
-/* Mevcut CSS'i koruyorum */
+/* Mevcut CSS */
 #carouselExampleRide {
   margin-top: 20px;
   position: relative;
+  width: 100%; /* Genişlik yüzde 100 yapıldı */
+  max-width: 1162px; /* Maksimum genişlik belirtildi */
+  margin-left: auto;
+  margin-right: auto; /* Ortalanmasını sağlar */
 }
+
 .carousel-control-prev,
 .carousel-control-next {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
   opacity: 1;
 }
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   border-radius: 50%;
@@ -69,12 +89,15 @@
   transform: translateY(-50%);
   z-index: 1;
 }
+
 .carousel-control-prev {
-  left: 100px;
+  left: 10px; /* Butonları daha yakın konumlandırdık */
 }
+
 .carousel-control-next {
-  right: 100px;
+  right: 10px; /* Butonları daha yakın konumlandırdık */
 }
+
 .carousel-control-prev-icon::before,
 .carousel-control-next-icon::after {
   content: '';
@@ -87,9 +110,11 @@
   width: 10px;
   height: 10px;
 }
+
 .carousel-control-next-icon::after {
   transform: translate(-50%, -50%) rotate(45deg);
 }
+
 .carousel-indicators button {
   width: 12px;
   height: 12px;
@@ -97,48 +122,22 @@
   background-color: white;
   border: none;
 }
+
 .carousel-indicators .active {
   background-color: black;
 }
+
 .carousel-inner {
-  height: 43x;
-  width: 1162px;
-  margin: 0 auto;
+  width: 100%; /* Container genişliğini %100 yapıyoruz */
+  height: 100%; /* Yüksekliği de %100 yapıyoruz */
   overflow: hidden;
-  border: 1px;
+  border: 1px solid transparent;
   border-radius: 8px;
 }
+
 .carousel-item {
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Görsellerin düzgün şekilde sığmasını sağlar */
 }
+
 </style>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useNuxtApp } from '#app'; // Nuxt plugin'e erişim
-import { getDocs, collection } from 'firebase/firestore';
-
-// Reactive değişken
-const carouselImages = ref([]); // Firebase'den çekilecek carousel resimleri
-
-// Nuxt app içinden Firebase servisine erişim
-const { $db } = useNuxtApp();
-
-// Firebase'den verileri çekmek için method
-const fetchCarouselImages = async () => {
-  try {
-    const querySnapshot = await getDocs(collection($db, 'Carousel'));
-    const imageData = querySnapshot.docs.map((doc) => doc.data());
-    console.log(imageData); // Verileri kontrol edin
-    carouselImages.value = imageData;
-  } catch (error) {
-    console.error('Veriler alınırken hata oluştu:', error);
-  }
-};
-
-// Component yüklendiğinde verileri çek
-onMounted(() => {
-  fetchCarouselImages();
-});
-</script>
